@@ -3,94 +3,59 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Kindness &amp; Co — Playable Prototype</title>
+<title>Kindness &amp; Co — Playable Prototype (v0.2 onboarding ladder)</title>
 <style>
   :root{
-    --bg:#fff7ec;
-    --bg2:#ffefd9;
-    --ink:#3a2f25;
-    --ink-soft:#7a6a58;
-    --card:#fffdf8;
-    --line:#ecdcc4;
-    --amber:#f0a830;
-    --amber-deep:#d98410;
-    --reach:#e8852a;        /* loud */
-    --ke:#7fa86a;           /* quiet green */
-    --glow:#e0b341;
-    --warmth:#f2b65c;
-    --courage:#c2766b;
-    --spirit-hi:#6fae8e;
-    --spirit-mid:#d8b24a;
-    --spirit-lo:#cf7b4b;
-    --spirit-crit:#b8474a;
-    --shadow:0 8px 28px rgba(120,80,20,.10);
-    --shadow-s:0 3px 10px rgba(120,80,20,.08);
-    --radius:16px;
+    --bg:#fff7ec; --bg2:#ffefd9; --ink:#3a2f25; --ink-soft:#7a6a58;
+    --card:#fffdf8; --line:#ecdcc4; --amber:#f0a830; --amber-deep:#d98410;
+    --reach:#e8852a; --ke:#7fa86a; --glow:#e0b341; --warmth:#f2b65c; --courage:#c2766b;
+    --shadow:0 8px 28px rgba(120,80,20,.10); --shadow-s:0 3px 10px rgba(120,80,20,.08); --radius:16px;
   }
   *{box-sizing:border-box}
   html,body{margin:0;height:100%}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    background:radial-gradient(1200px 700px at 70% -10%,var(--bg2),var(--bg));
-    color:var(--ink);
-    -webkit-font-smoothing:antialiased;
-    line-height:1.45;
-  }
-  .wrap{max-width:1180px;margin:0 auto;padding:18px 18px 60px}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:radial-gradient(1200px 700px at 70% -10%,var(--bg2),var(--bg));color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.45}
+  .wrap{max-width:1180px;margin:0 auto;padding:18px 18px 80px}
 
-  /* ---------- top bar ---------- */
-  .topbar{
-    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-    background:linear-gradient(180deg,#fffaf1,#fff4e4);
-    border:1px solid var(--line);border-radius:var(--radius);
-    padding:12px 16px;box-shadow:var(--shadow-s);position:sticky;top:10px;z-index:30;
-  }
+  /* top bar / HUD */
+  .topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:linear-gradient(180deg,#fffaf1,#fff4e4);
+    border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;box-shadow:var(--shadow-s);position:sticky;top:10px;z-index:30}
   .logo{font-weight:800;letter-spacing:.2px;font-size:18px;display:flex;align-items:center;gap:8px}
   .logo .mark{width:26px;height:26px;border-radius:8px;background:radial-gradient(circle at 35% 30%,#ffd98a,var(--amber-deep));box-shadow:inset 0 0 0 2px #fff7;display:grid;place-items:center;color:#fff;font-size:15px}
   .rankpill{font-size:12px;color:var(--ink-soft);background:#fff3e0;border:1px solid var(--line);padding:3px 10px;border-radius:999px}
+  .daypill{font-size:12px;color:var(--ink-soft);background:#fff;border:1px solid var(--line);padding:3px 10px;border-radius:999px}
   .spacer{flex:1}
-
   .hud{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
-  .stat{
-    background:var(--card);border:1px solid var(--line);border-radius:12px;
-    padding:7px 12px;min-width:84px;box-shadow:var(--shadow-s);position:relative;
-  }
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:7px 12px;min-width:84px;box-shadow:var(--shadow-s)}
   .stat .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--ink-soft)}
   .stat .val{font-size:18px;font-weight:800;line-height:1.1}
   .stat.reach{background:linear-gradient(180deg,#fff1df,#ffe6c8);border-color:#f3cf9d}
   .stat.reach .val{color:var(--reach);font-size:24px}
   .stat.reach .lbl{color:var(--reach);font-weight:700}
-  .stat.ke .val{color:var(--ke);font-size:15px}
-  .stat.ke{opacity:.92}
+  .stat.ke .val{color:var(--ke);font-size:14px}
+  .stat.ke{opacity:.9}
   .stat.glow .val{color:var(--amber-deep)}
-  .warmthwrap{min-width:170px}
+  .warmthwrap{min-width:160px}
   .bar{height:9px;border-radius:999px;background:#f0e2cc;overflow:hidden;margin-top:5px;border:1px solid #ecdcc4}
   .bar > i{display:block;height:100%;background:linear-gradient(90deg,#ffd187,var(--warmth));width:0%;transition:width .35s ease}
   .courage .bar > i{background:linear-gradient(90deg,#e2a99f,var(--courage))}
-
-  /* ---------- spirit meter (hidden until reveal) ---------- */
-  .spiritbox{
-    min-width:210px;display:none;overflow:hidden;
-  }
+  .spiritbox{min-width:180px;display:none}
   .spiritbox.show{display:block;animation:spiritIn 1.2s cubic-bezier(.2,.8,.2,1)}
-  @keyframes spiritIn{
-    0%{transform:scale(.7) translateY(-6px);opacity:0;filter:blur(4px)}
-    60%{opacity:1}
-    100%{transform:scale(1);opacity:1;filter:blur(0)}
-  }
-  .spiritbox .val{transition:color .4s}
+  @keyframes spiritIn{0%{transform:scale(.7) translateY(-6px);opacity:0;filter:blur(4px)}60%{opacity:1}100%{transform:scale(1);opacity:1;filter:blur(0)}}
 
-  /* ---------- layout ---------- */
-  .grid{display:grid;grid-template-columns:300px 1fr 300px;gap:16px;margin-top:16px}
+  .grid{display:grid;grid-template-columns:290px 1fr 300px;gap:16px;margin-top:16px}
   @media(max-width:980px){.grid{grid-template-columns:1fr}}
+  .col{display:flex;flex-direction:column;gap:16px;min-width:0}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-  .panel h2{margin:0;padding:14px 16px;font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft);border-bottom:1px solid var(--line);background:#fffaf1}
+  .panel.hidden{display:none}
+  .panel h2{margin:0;padding:13px 16px;font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-soft);border-bottom:1px solid var(--line);background:#fffaf1;display:flex;justify-content:space-between;align-items:center}
   .panel .body{padding:14px 16px}
+  .newflag{font-size:9px;background:var(--amber);color:#3a2a10;border-radius:6px;padding:1px 6px;letter-spacing:.4px;animation:pulse2 1.4s 4}
+  @keyframes pulse2{0%,100%{opacity:1}50%{opacity:.4}}
 
-  /* dispatch board */
+  /* board */
   .board h2{color:var(--reach)}
-  .board .body{padding:10px 12px}
-  .boardnote{font-size:11px;color:var(--ink-soft);padding:0 4px 8px}
+  .boardnote{font-size:11px;color:var(--ink-soft);padding:0 0 8px}
   .rankrow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;margin-bottom:5px;background:#fff8ee;border:1px solid #f3e6cf}
   .rankrow.you{background:linear-gradient(90deg,#fff0d6,#ffe3bd);border-color:#f0c889;box-shadow:0 0 0 1px #f0c889 inset}
   .rankrow .pos{width:20px;font-weight:800;color:var(--ink-soft);text-align:center}
@@ -98,35 +63,21 @@
   .rankrow .rc{font-weight:800;color:var(--reach);font-variant-numeric:tabular-nums}
   .rankrow.tick{animation:tick .6s ease}
   @keyframes tick{0%{background:#fff}50%{background:#ffe9c4}}
-
-  .founderquote{font-style:italic;color:var(--ink-soft);font-size:12.5px;border-left:3px solid var(--line);padding:6px 0 6px 12px;margin:12px 4px 2px}
+  .founderquote{font-style:italic;color:var(--ink-soft);font-size:12.5px;border-left:3px solid var(--line);padding:6px 0 6px 12px;margin:12px 2px 2px}
   .founderquote small{display:block;font-style:normal;margin-top:4px;opacity:.7}
 
   /* desk / acts */
-  .desk .body{padding:16px}
-  .deskscene{
-    background:linear-gradient(180deg,#fff7e9,#fff1dd);
-    border:1px dashed #ecd6b2;border-radius:12px;padding:14px;margin-bottom:14px;
-    min-height:64px;font-size:14px;color:var(--ink-soft)
-  }
+  .deskscene{background:linear-gradient(180deg,#fff7e9,#fff1dd);border:1px dashed #ecd6b2;border-radius:12px;padding:14px;margin-bottom:14px;min-height:54px;font-size:14px;color:var(--ink-soft)}
   .acts{display:grid;gap:10px}
-  .act{
-    text-align:left;border:1px solid var(--line);background:var(--card);
-    border-radius:12px;padding:12px 14px;cursor:pointer;transition:transform .08s,box-shadow .2s,border-color .2s;
-    display:flex;gap:12px;align-items:center;width:100%;font:inherit;color:inherit
-  }
+  .act{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 14px;cursor:pointer;transition:transform .08s,box-shadow .2s,border-color .2s;display:flex;gap:12px;align-items:center;width:100%;font:inherit;color:inherit}
   .act:hover:not(:disabled){transform:translateY(-1px);box-shadow:var(--shadow-s);border-color:#e6c894}
-  .act:active:not(:disabled){transform:translateY(0)}
   .act:disabled{opacity:.45;cursor:not-allowed}
   .act .ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:20px;flex:none;background:#fff3df;border:1px solid #f1e0c4}
-  .act .tt{flex:1}
-  .act .tt .nm{font-weight:700;font-size:14.5px}
-  .act .tt .ds{font-size:12px;color:var(--ink-soft)}
+  .act .tt{flex:1}.act .tt .nm{font-weight:700;font-size:14.5px}.act .tt .ds{font-size:12px;color:var(--ink-soft)}
   .act .cost{font-size:11px;color:var(--ink-soft);text-align:right;white-space:nowrap}
-  .act.rote .ic{background:#fff3df}
   .act.genuine .ic{background:#eef6e7;border-color:#d8e6c8}
   .act.brave .ic{background:#f6e7e4;border-color:#e6c8c2}
-  .tag{font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;padding:1px 6px;border-radius:6px;border:1px solid;display:inline-block;margin-left:6px;vertical-align:middle}
+  .tag{font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;padding:1px 6px;border-radius:6px;border:1px solid;margin-left:6px;vertical-align:middle}
   .tag.r{color:var(--amber-deep);border-color:#f0c987;background:#fff3df}
   .tag.g{color:#5e8a48;border-color:#cfe0bd;background:#eef6e7}
   .tag.b{color:#b4625a;border-color:#e6c8c2;background:#f6e7e4}
@@ -134,879 +85,697 @@
   .exits{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
   .exit{border:1px solid var(--line);background:#fffaf1;border-radius:11px;padding:10px;cursor:pointer;text-align:center;font:inherit;color:inherit;transition:.15s}
   .exit:hover{border-color:#e6c894;background:#fff4e2}
-  .exit .e-ic{font-size:18px}
-  .exit .e-nm{font-weight:700;font-size:12.5px;margin-top:2px}
-  .exit .e-ds{font-size:10.5px;color:var(--ink-soft)}
+  .exit .e-ic{font-size:18px}.exit .e-nm{font-weight:700;font-size:12.5px;margin-top:2px}.exit .e-ds{font-size:10.5px;color:var(--ink-soft)}
   .lowwarn{margin-top:12px;font-size:12px;color:var(--amber-deep);background:#fff2db;border:1px solid #f3d59a;border-radius:10px;padding:8px 10px;display:none}
   .lowwarn.show{display:block}
+  .sessionctl{margin-top:14px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 
-  /* right column: feed + chart */
-  .feed .body{padding:8px 10px;max-height:300px;overflow:auto}
+  /* store / spaces / circle / ripples */
+  .shelfitem{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:8px;background:#fffaf1}
+  .shelfitem .ic{font-size:22px}
+  .shelfitem .tt{flex:1}.shelfitem .tt .nm{font-weight:700;font-size:13.5px}.shelfitem .tt .ds{font-size:11.5px;color:var(--ink-soft)}
+  .buybtn{border:none;background:linear-gradient(180deg,#ffc869,var(--amber-deep));color:#3a2a10;font-weight:800;font-size:12px;padding:7px 12px;border-radius:9px;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .buybtn:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.3)}
+  .ripgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+  .rippiece{aspect-ratio:1;border-radius:9px;border:1px solid var(--line);background:#fff8ee;display:grid;place-items:center;font-size:18px;opacity:.35}
+  .rippiece.got{opacity:1;background:#f4f9ee;border-color:#cfe0bd}
+  .ripcap{font-size:11px;color:var(--ink-soft);margin-top:8px}
+
+  .feed .body{padding:8px 10px;max-height:260px;overflow:auto}
   .fitem{font-size:12.5px;padding:8px 10px;border-radius:9px;margin-bottom:6px;background:#fffaf1;border:1px solid #f3e6cf;animation:fin .35s ease}
   @keyframes fin{from{opacity:0;transform:translateY(-4px)}to{opacity:1}}
   .fitem .when{font-size:10px;color:var(--ink-soft)}
   .fitem.good{border-color:#d8e6c8;background:#f4f9ee}
   .fitem.whisper{border-color:#e6d6c2;background:#fbf3e7}
   .fitem b.r{color:var(--reach)} .fitem b.k{color:var(--ke)} .fitem b.g{color:var(--amber-deep)}
-
   .chartwrap{padding:10px 12px}
-  .chartwrap canvas{width:100%;height:150px;display:block;background:#fffaf1;border:1px solid #f3e6cf;border-radius:10px}
+  .chartwrap canvas{width:100%;height:140px;display:block;background:#fffaf1;border:1px solid #f3e6cf;border-radius:10px}
   .legend{display:flex;gap:14px;font-size:11px;color:var(--ink-soft);margin-top:8px;flex-wrap:wrap}
-  .legend span{display:inline-flex;align-items:center;gap:5px}
-  .legend i{width:18px;height:3px;border-radius:2px;display:inline-block}
+  .legend span{display:inline-flex;align-items:center;gap:5px}.legend i{width:18px;height:3px;border-radius:2px;display:inline-block}
 
-  /* guide / dialogue overlay */
-  .guide{
-    position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
-    width:min(680px,92vw);background:#fffdf8;border:1px solid #ecd6b2;
-    border-radius:16px;box-shadow:0 16px 50px rgba(120,80,20,.22);z-index:60;
-    padding:16px 18px;display:none;animation:gin .3s ease
-  }
+  /* guide */
+  .guide{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);width:min(680px,92vw);background:#fffdf8;border:1px solid #ecd6b2;border-radius:16px;box-shadow:0 16px 50px rgba(120,80,20,.22);z-index:60;padding:16px 18px;display:none;animation:gin .3s ease}
   .guide.show{display:block}
   @keyframes gin{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
   .guide .who{display:flex;align-items:center;gap:10px;margin-bottom:8px}
   .guide .ava{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe1a3,#e79a3c);display:grid;place-items:center;font-size:18px;flex:none}
-  .guide .nm{font-weight:800;font-size:14px}
-  .guide .role{font-size:11px;color:var(--ink-soft)}
+  .guide .nm{font-weight:800;font-size:14px}.guide .role{font-size:11px;color:var(--ink-soft)}
   .guide .txt{font-size:14.5px;margin:2px 0 12px}
   .guide .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .guide .step{font-size:11px;color:var(--ink-soft)}
-  .btn{
-    border:none;background:linear-gradient(180deg,#ffc869,var(--amber-deep));color:#3a2a10;
-    font-weight:800;font-size:13.5px;padding:9px 18px;border-radius:11px;cursor:pointer;
-    box-shadow:0 4px 12px rgba(217,132,16,.3);font-family:inherit
-  }
-  .btn:hover{filter:brightness(1.04)}
-  .btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:700}
+  .btn{border:none;background:linear-gradient(180deg,#ffc869,var(--amber-deep));color:#3a2a10;font-weight:800;font-size:13.5px;padding:9px 18px;border-radius:11px;cursor:pointer;box-shadow:0 4px 12px rgba(217,132,16,.3);font-family:inherit}
+  .btn:hover{filter:brightness(1.04)}.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:700}
   .btn:disabled{opacity:.5;cursor:not-allowed}
-
   .highlight{box-shadow:0 0 0 3px var(--amber),0 0 0 8px rgba(240,168,48,.25)!important;border-radius:14px;position:relative;z-index:40;animation:pulse 1.4s infinite}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 3px var(--amber),0 0 0 8px rgba(240,168,48,.25)}50%{box-shadow:0 0 0 3px var(--amber),0 0 0 12px rgba(240,168,48,.12)}}
 
-  /* big celebration / reveal modals */
+  /* modals */
   .modal{position:fixed;inset:0;background:rgba(60,40,20,.42);display:none;place-items:center;z-index:80;padding:20px;animation:fin .25s}
   .modal.show{display:grid}
   .modalcard{background:var(--card);border-radius:20px;max-width:560px;width:100%;box-shadow:0 30px 80px rgba(80,50,10,.35);overflow:hidden;border:1px solid var(--line)}
   .modalcard .head{padding:22px 24px 6px;text-align:center}
-  .modalcard .head .big{font-size:30px;font-weight:900;letter-spacing:.3px}
+  .modalcard .head .big{font-size:28px;font-weight:900}
   .modalcard .head .sub{color:var(--ink-soft);font-size:14px;margin-top:4px}
   .modalcard .body2{padding:8px 24px 22px;font-size:14px}
   .modalcard .foot{padding:0 24px 22px;text-align:center}
   .confetti{font-size:34px;text-align:center;padding:8px 0 0}
-
+  .stat-alloc{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+  .alloc{border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:.15s}
+  .alloc:hover{border-color:#e6c894;background:#fff7e9}
+  .alloc .a-ic{font-size:24px}.alloc .a-nm{font-weight:800;margin-top:4px}.alloc .a-ds{font-size:12px;color:var(--ink-soft)}
   .revealcard .head{background:linear-gradient(180deg,#2c2536,#3a3145);color:#f3ecff}
-  .revealcard .head .big{color:#fff}
-  .revealcard .head .sub{color:#cdbfe0}
+  .revealcard .head .big{color:#fff}.revealcard .head .sub{color:#cdbfe0}
   .revealcanvas{width:100%;height:170px;background:#241f2e;border-radius:12px;display:block;margin:6px 0 10px}
   .bandkey{display:flex;gap:10px;font-size:11px;flex-wrap:wrap;color:var(--ink-soft);margin-bottom:8px}
   .bandkey i{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:4px;vertical-align:-2px}
 
-  .stat-alloc{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
-  .alloc{border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;cursor:pointer;transition:.15s}
-  .alloc:hover{border-color:#e6c894;background:#fff7e9}
-  .alloc .a-ic{font-size:24px}
-  .alloc .a-nm{font-weight:800;margin-top:4px}
-  .alloc .a-ds{font-size:12px;color:var(--ink-soft)}
-
   .floaty{position:fixed;z-index:90;font-weight:800;pointer-events:none;font-size:15px;animation:floatup 1s ease forwards}
   @keyframes floatup{0%{opacity:0;transform:translateY(0) scale(.8)}20%{opacity:1}100%{opacity:0;transform:translateY(-46px) scale(1.1)}}
-
   .footnote{margin-top:26px;text-align:center;font-size:11.5px;color:var(--ink-soft)}
-  .footnote a{color:var(--amber-deep)}
-  .resetbtn{font-size:11px;color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer;font-family:inherit}
+
+  /* dev panel */
+  .devtoggle{position:fixed;left:14px;bottom:14px;z-index:70;font-size:12px;background:#2c2536;color:#f3ecff;border:none;border-radius:10px;padding:8px 12px;cursor:pointer;font-family:inherit;font-weight:700;box-shadow:0 6px 18px rgba(40,30,50,.3)}
+  .devpanel{position:fixed;left:14px;bottom:54px;z-index:70;width:300px;background:#2c2536;color:#f3ecff;border-radius:14px;padding:14px;display:none;box-shadow:0 18px 50px rgba(20,15,30,.5);max-height:78vh;overflow:auto}
+  .devpanel.show{display:block}
+  .devpanel h3{margin:0 0 4px;font-size:13px;letter-spacing:.4px}
+  .devpanel .hint{font-size:11px;color:#b6a9c9;margin-bottom:10px}
+  .devpanel .seclbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#9d8fb5;margin:12px 0 5px}
+  .devpanel button.d{display:block;width:100%;text-align:left;background:#3a3148;color:#f3ecff;border:1px solid #4a4060;border-radius:8px;padding:7px 9px;margin-bottom:5px;cursor:pointer;font-family:inherit;font-size:12px}
+  .devpanel button.d:hover{background:#473c5c}
+  .devpanel .rgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .devrow{display:flex;gap:6px;margin-bottom:5px}
+  .devrow button{flex:1}
 </style>
 </head>
 <body>
 <div class="wrap">
-
-  <!-- TOP BAR / HUD -->
   <div class="topbar">
     <div class="logo"><span class="mark">✦</span> Kindness &amp; Co</div>
     <div class="rankpill" id="rankpill">Mail Room Clerk</div>
+    <div class="daypill" id="daypill">Day 1</div>
     <div class="spacer"></div>
     <div class="hud">
-      <div class="stat warmthwrap warmth" id="warmthStat">
-        <div class="lbl">Warmth</div>
+      <div class="stat warmthwrap warmth"><div class="lbl">Warmth</div>
         <div class="val"><span id="warmthVal">20</span><span style="font-size:12px;color:var(--ink-soft)">/<span id="warmthMax">20</span></span></div>
-        <div class="bar"><i id="warmthBar"></i></div>
-      </div>
-      <div class="stat courage" id="courageStat" style="display:none">
-        <div class="lbl">Courage</div>
+        <div class="bar"><i id="warmthBar"></i></div></div>
+      <div class="stat courage" id="courageStat" style="display:none"><div class="lbl">Courage</div>
         <div class="val"><span id="courageVal">0</span><span style="font-size:12px;color:var(--ink-soft)">/<span id="courageMax">3</span></span></div>
-        <div class="bar"><i id="courageBar"></i></div>
-      </div>
-      <div class="stat spiritbox" id="spiritStat">
-        <div class="lbl">Spirit</div>
-        <div class="val" id="spiritVal">100</div>
-        <div class="bar"><i id="spiritBar" style="background:linear-gradient(90deg,#9fd8bb,var(--spirit-hi))"></i></div>
-      </div>
-      <div class="stat reach">
-        <div class="lbl">Reach</div>
-        <div class="val" id="reachVal">0</div>
-      </div>
-      <div class="stat ke">
-        <div class="lbl">kindness-energy</div>
-        <div class="val" id="keVal">0</div>
-      </div>
-      <div class="stat glow">
-        <div class="lbl">Glow</div>
-        <div class="val" id="glowVal">0</div>
-      </div>
+        <div class="bar"><i id="courageBar"></i></div></div>
+      <div class="stat spiritbox" id="spiritStat"><div class="lbl">Spirit</div>
+        <div class="val" id="spiritVal">100</div><div class="bar"><i id="spiritBar"></i></div></div>
+      <div class="stat reach" id="reachStat" style="display:none"><div class="lbl">Reach</div><div class="val" id="reachVal">0</div></div>
+      <div class="stat ke" id="keStat" style="display:none"><div class="lbl">kindness-energy</div><div class="val" id="keVal">0</div></div>
+      <div class="stat glow" id="glowStat" style="display:none"><div class="lbl">Glow</div><div class="val" id="glowVal">0</div></div>
     </div>
   </div>
 
-  <!-- MAIN GRID -->
   <div class="grid">
-
-    <!-- LEFT: DISPATCH BOARD -->
-    <div class="panel board" id="boardPanel">
-      <h2>★ Dispatch Board</h2>
-      <div class="body">
-        <div class="boardnote">Ranked by <b style="color:var(--reach)">Reach</b> — total kindness dispatched. This is the number that matters here.</div>
-        <div id="boardRows"></div>
-        <div class="founderquote" id="founderQuote">
-          “No kindness is ever wasted.”
-          <small>— Eleanor Vance, founder</small>
+    <!-- LEFT -->
+    <div class="col">
+      <div class="panel board hidden" id="boardPanel">
+        <h2>★ Dispatch Board</h2>
+        <div class="body">
+          <div class="boardnote">Ranked by <b style="color:var(--reach)">Reach</b> — total kindness dispatched. The number that matters here.</div>
+          <div id="boardRows"></div>
+          <div class="founderquote">“No kindness is ever wasted.”<small>— Eleanor Vance, founder</small></div>
         </div>
       </div>
+      <div class="panel hidden" id="storePanel"><h2>🛍️ Supplies <span class="newflag" id="storeNew">new</span></h2><div class="body" id="storeBody"></div></div>
+      <div class="panel hidden" id="spacesPanel"><h2>🏘️ Community Spaces <span class="newflag" id="spacesNew">new</span></h2><div class="body" id="spacesBody"></div></div>
     </div>
 
-    <!-- CENTER: DESK / ACTS -->
-    <div class="panel desk">
-      <h2>Your Desk</h2>
-      <div class="body">
-        <div class="deskscene" id="deskScene">Welcome to your first day in the mail room.</div>
+    <!-- CENTER -->
+    <div class="col">
+      <div class="panel desk"><h2>Your Desk</h2><div class="body">
+        <div class="deskscene" id="deskScene">Your first day in the mail room.</div>
         <div class="acts" id="acts"></div>
-
-        <div class="lowwarn" id="lowwarn">You're running low on Warmth. That's not a failure — it's a signal. Take one of the three below.</div>
-        <div class="exits" id="exits">
+        <div class="lowwarn" id="lowwarn">You're running low on Warmth. That's a signal, not a failure.</div>
+        <div class="exits hidden" id="exits">
           <button class="exit" data-exit="rest"><div class="e-ic">🌿</div><div class="e-nm">Rest</div><div class="e-ds">Bless the break</div></button>
           <button class="exit" data-exit="receive"><div class="e-ic">💌</div><div class="e-nm">Receive</div><div class="e-ds">From your Circle</div></button>
           <button class="exit" data-exit="reflect"><div class="e-ic">🕊️</div><div class="e-nm">Reflect</div><div class="e-ds">A gratitude pause</div></button>
         </div>
-      </div>
-    </div>
-
-    <!-- RIGHT: FEED + CHART -->
-    <div class="panel feed">
-      <h2>Today</h2>
-      <div class="body" id="feed"></div>
-      <h2 style="border-top:1px solid var(--line)">Your kindness, over the session</h2>
-      <div class="chartwrap">
-        <canvas id="keChart" width="560" height="150"></canvas>
-        <div class="legend">
-          <span><i style="background:var(--reach)"></i> Reach (volume)</span>
-          <span><i style="background:var(--ke)"></i> kindness-energy (real good)</span>
+        <div class="sessionctl" id="sessionCtl" style="display:none">
+          <div style="font-size:12px;color:var(--ink-soft)" id="sessionNote">Done for now? Wrap up the day.</div>
+          <button class="btn ghost" id="endDayBtn">End the day →</button>
         </div>
-      </div>
+      </div></div>
+      <div class="panel circle hidden" id="circlePanel"><h2>🤲 Kindness Circle <span class="newflag" id="circleNew">new</span></h2><div class="body" id="circleBody"></div></div>
     </div>
 
+    <!-- RIGHT -->
+    <div class="col">
+      <div class="panel feed"><h2>Today</h2><div class="body" id="feed"></div></div>
+      <div class="panel hidden" id="chartPanel"><h2>Depth vs volume</h2>
+        <div class="chartwrap"><canvas id="keChart" width="560" height="140"></canvas>
+          <div class="legend"><span><i style="background:var(--reach)"></i> Reach (volume)</span><span><i style="background:var(--ke)"></i> kindness-energy (real good)</span></div>
+        </div></div>
+      <div class="panel ripples hidden" id="ripplesPanel"><h2>🌊 Ripples <span class="newflag" id="ripplesNew">new</span></h2>
+        <div class="body"><div class="ripgrid" id="ripGrid"></div><div class="ripcap" id="ripCap"></div></div></div>
+    </div>
   </div>
 
-  <div class="footnote">
-    Playable prototype of <b>Kindness &amp; Co</b> · Act I onboarding + the Spirit-meter hinge ·
-    <button class="resetbtn" id="resetBtn">Reset &amp; replay</button>
-  </div>
+  <div class="footnote">Playable prototype · <b>v0.2 onboarding ladder</b> — systems introduced one at a time · Use the <b>DEV</b> panel (bottom-left) to jump between rungs.</div>
 </div>
 
-<!-- GUIDE / DIALOGUE -->
+<!-- guide -->
 <div class="guide" id="guide">
-  <div class="who">
-    <div class="ava" id="guideAva">😊</div>
-    <div>
-      <div class="nm" id="guideName">Pem</div>
-      <div class="role" id="guideRole">Quota Evangelist, Mail Room</div>
-    </div>
-  </div>
+  <div class="who"><div class="ava" id="guideAva">😊</div><div><div class="nm" id="guideName">Pem</div><div class="role" id="guideRole">Mail Room</div></div></div>
   <div class="txt" id="guideTxt"></div>
-  <div class="row">
-    <div class="step" id="guideStep"></div>
-    <button class="btn" id="guideNext">Next</button>
-  </div>
+  <div class="row"><div class="step" id="guideStep"></div><button class="btn" id="guideNext">Next</button></div>
 </div>
 
-<!-- GENERIC MODAL -->
-<div class="modal" id="modal">
-  <div class="modalcard" id="modalCard">
-    <div class="confetti" id="modalConfetti"></div>
-    <div class="head">
-      <div class="big" id="modalTitle"></div>
-      <div class="sub" id="modalSub"></div>
-    </div>
-    <div class="body2" id="modalBody"></div>
-    <div class="foot"><button class="btn" id="modalBtn">Continue</button></div>
-  </div>
-</div>
+<!-- generic modal -->
+<div class="modal" id="modal"><div class="modalcard">
+  <div class="confetti" id="modalConfetti"></div>
+  <div class="head"><div class="big" id="modalTitle"></div><div class="sub" id="modalSub"></div></div>
+  <div class="body2" id="modalBody"></div><div class="foot"><button class="btn" id="modalBtn">Continue</button></div>
+</div></div>
 
-<!-- STAT ALLOCATION MODAL -->
-<div class="modal" id="allocModal">
-  <div class="modalcard">
-    <div class="head"><div class="big">Promotion bonus</div><div class="sub">Spend a stat point. A faint sense of a build that's yours.</div></div>
-    <div class="body2">
-      <div class="stat-alloc">
-        <div class="alloc" data-stat="warmth"><div class="a-ic">🔥</div><div class="a-nm">+Warmth capacity</div><div class="a-ds">Do more before you rest</div></div>
-        <div class="alloc" data-stat="efficiency"><div class="a-ic">⚙️</div><div class="a-nm">+Efficiency</div><div class="a-ds">Acts cost slightly less Warmth</div></div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- alloc modal -->
+<div class="modal" id="allocModal"><div class="modalcard">
+  <div class="head"><div class="big">Spend a stat point</div><div class="sub">A build that's yours.</div></div>
+  <div class="body2"><div class="stat-alloc">
+    <div class="alloc" data-stat="warmth"><div class="a-ic">🔥</div><div class="a-nm">+Warmth capacity</div><div class="a-ds">Do more before you rest</div></div>
+    <div class="alloc" data-stat="efficiency"><div class="a-ic">⚙️</div><div class="a-nm">+Efficiency</div><div class="a-ds">Acts cost slightly less Warmth</div></div>
+  </div></div>
+</div></div>
 
-<!-- SPIRIT REVEAL MODAL -->
-<div class="modal" id="revealModal">
-  <div class="modalcard revealcard">
-    <div class="head">
-      <div class="big">Spirit</div>
-      <div class="sub">Something you were never shown has been here the whole time.</div>
-    </div>
-    <div class="body2">
-      <canvas id="revealCanvas" class="revealcanvas" width="560" height="170"></canvas>
-      <div class="bandkey">
-        <span><i style="background:#6fae8e"></i>80–100 · ×1.2 best</span>
-        <span><i style="background:#d8b24a"></i>50–79 · ×1.0 steady</span>
-        <span><i style="background:#cf7b4b"></i>25–49 · ×0.6 flat</span>
-        <span><i style="background:#b8474a"></i>0–24 · ×0.3 empty</span>
-      </div>
-      <div id="revealText" style="font-size:14px"></div>
-    </div>
-    <div class="foot"><button class="btn" id="revealBtn">I see it now</button></div>
-  </div>
+<!-- reveal modal -->
+<div class="modal" id="revealModal"><div class="modalcard revealcard">
+  <div class="head"><div class="big">Spirit</div><div class="sub">Something you were never shown has been here the whole time.</div></div>
+  <div class="body2"><canvas id="revealCanvas" class="revealcanvas" width="560" height="170"></canvas>
+    <div class="bandkey"><span><i style="background:#6fae8e"></i>80–100 ×1.2</span><span><i style="background:#d8b24a"></i>50–79 ×1.0</span><span><i style="background:#cf7b4b"></i>25–49 ×0.6</span><span><i style="background:#b8474a"></i>0–24 ×0.3</span></div>
+    <div id="revealText" style="font-size:14px"></div></div>
+  <div class="foot"><button class="btn" id="revealBtn">I see it now</button></div>
+</div></div>
+
+<!-- dev panel -->
+<button class="devtoggle" id="devToggle">🛠 DEV</button>
+<div class="devpanel" id="devPanel">
+  <h3>Dev / test panel</h3>
+  <div class="hint">Jump the onboarding ladder, tune resources, force the Spirit reveal. Not player-facing.</div>
+  <div class="seclbl">Jump to rung (unlocks everything up to it)</div>
+  <div class="rgrid" id="devRungs"></div>
+  <div class="seclbl">Resources</div>
+  <div class="devrow"><button class="d" data-give="warmth">+Warmth full</button><button class="d" data-give="glow">+500 Glow</button></div>
+  <div class="devrow"><button class="d" data-give="reach">+25 Reach</button><button class="d" data-give="ripple">+1 Ripple</button></div>
+  <div class="seclbl">Sessions</div>
+  <button class="d" id="devNextDay">Advance one day →</button>
+  <div class="seclbl">The Spirit hinge</div>
+  <button class="d" id="devCrisis">Begin Act III crisis (reveal becomes reachable)</button>
+  <button class="d" id="devReveal">Force Spirit reveal now</button>
+  <div class="seclbl">State</div>
+  <button class="d" id="devReset">Reset &amp; replay from Day 1</button>
 </div>
 
 <script>
 "use strict";
 /* =========================================================================
-   Kindness & Co — playable prototype
-   Implements the Section 16 vertical slice + the Act I onboarding beat sheet
-   + the Spirit-meter reveal hinge (Act III).
+   Kindness & Co — playable prototype, v0.2 onboarding ladder.
+   Session one is the core loop and NOTHING else. Every other system enters
+   one at a time, gated by a trigger (the 9 rungs). Spirit is off the ladder:
+   recorded from the first act, hidden, revealed only when it crosses below 50.
    All numbers come straight from the design docs (illustrative by design).
    ========================================================================= */
 
-/* ---------- act definitions (mail-room content) ---------- */
 const ACTS = {
-  // rote (Act I)
-  stamp:   {type:'rote',   icon:'📮', name:'Stamp a cheerful note',      desc:'A pre-printed well-wish, out the door.', warmth:2,  ke:5,  glow:3,  spirit:2},
-  forward: {type:'rote',   icon:'💛', name:'Forward a thank-you card',   desc:'Pass along a stock card of thanks.',    warmth:2,  ke:5,  glow:3,  spirit:2},
-  sticker: {type:'rote',   icon:'⭐', name:'Add a smiley sticker',        desc:'A little foil star on an envelope.',    warmth:2,  ke:5,  glow:3,  spirit:2},
-  formwish:{type:'rote',   icon:'🗂️', name:'Send a form well-wish',       desc:'Generic, fast, fine.',                  warmth:2,  ke:5,  glow:3,  spirit:2},
-  // genuine (unlocks after Act I)
-  personal:{type:'genuine',icon:'✍️', name:'Write a note to someone by name', desc:'Slow down. Mean it. Cost more.',    warmth:5,  ke:15, glow:8,  spirit:4},
-  handpick:{type:'genuine',icon:'🎴', name:'Hand-pick a card for a hard week',desc:'The right card for the right person.',warmth:5,  ke:15, glow:8,  spirit:4},
-  // brave (unlocks at the crisis; needs Courage)
-  reachout:{type:'brave',  icon:'🤝', name:'Reach out to someone struggling', desc:'Maro in Accounts has gone quiet.',  warmth:10, ke:50, glow:25, spirit:8, courage:1},
-  apology: {type:'brave',  icon:'🫶', name:'Make a real apology',           desc:'Own the thing you got wrong.',          warmth:10, ke:50, glow:25, spirit:8, courage:1},
+  stamp:   {type:'rote',   icon:'📮', name:'Stamp a cheerful note',          desc:'A pre-printed well-wish, out the door.', warmth:2, ke:5, glow:3, spirit:2},
+  forward: {type:'rote',   icon:'💛', name:'Forward a thank-you card',       desc:'Pass along a stock card of thanks.',     warmth:2, ke:5, glow:3, spirit:2},
+  sticker: {type:'rote',   icon:'⭐', name:'Add a smiley sticker',            desc:'A little foil star on an envelope.',     warmth:2, ke:5, glow:3, spirit:2},
+  personal:{type:'genuine',icon:'✍️', name:'Write a note to someone by name', desc:'Slow down. Mean it.',                    warmth:5, ke:15, glow:8, spirit:4},
+  handpick:{type:'genuine',icon:'🎴', name:'Hand-pick a card for a hard week',desc:'The right card for the right person.',   warmth:5, ke:15, glow:8, spirit:4},
+  reachout:{type:'brave',  icon:'🤝', name:'Reach out to someone struggling', desc:'Maro in Accounts has gone quiet.',       warmth:10, ke:50, glow:25, spirit:8, courage:1},
+  apology: {type:'brave',  icon:'🫶', name:'Make a real apology',             desc:'Own the thing you got wrong.',           warmth:10, ke:50, glow:25, spirit:8, courage:1},
 };
-
 const RANKS = [
-  {name:'Mail Room Clerk',     warmthMax:20},
-  {name:'Cards & Letters',     warmthMax:50},
-  {name:'Small Gestures',      warmthMax:90},
-  {name:'Community Outreach',  warmthMax:120},
-  {name:'Crisis Response',     warmthMax:120},
+  {name:'Mail Room Clerk', warmthMax:20},
+  {name:'Cards & Letters', warmthMax:50},
+  {name:'Small Gestures',  warmthMax:90},
+  {name:'Community Outreach', warmthMax:120},
+  {name:'Crisis Response', warmthMax:120},
 ];
-
-const SPIRIT_BANDS = [
-  {min:80, mult:1.2, label:'giving your best',  color:'#6fae8e'},
-  {min:50, mult:1.0, label:'steady',            color:'#d8b24a'},
-  {min:25, mult:0.6, label:'landing flat',      color:'#cf7b4b'},
-  {min:0,  mult:0.3, label:'running on empty',  color:'#b8474a'},
+const SPIRIT_BANDS=[{min:80,mult:1.2,color:'#6fae8e'},{min:50,mult:1.0,color:'#d8b24a'},{min:25,mult:0.6,color:'#cf7b4b'},{min:0,mult:0.3,color:'#b8474a'}];
+const COLLEAGUES=[{nm:'Dara',reach:64},{nm:'Tomas',reach:51},{nm:'Priya',reach:43},{nm:'You',reach:0,you:true},{nm:'Wren',reach:12}];
+const SUPPLIES=[{id:'touch',icon:'🖋️',name:'Personal Touch',desc:'A hand-written flourish. +50% kindness-energy on your next 3 acts.',cost:30,buff:3}];
+const SPACES=[
+  {id:'library',icon:'📚',name:'Little free library',cost:200,passive:20},
+  {id:'garden', icon:'🌻',name:'Community garden',   cost:800,passive:50},
+  {id:'repair', icon:'🔧',name:'Repair café',        cost:2500,passive:110},
+  {id:'hub',    icon:'🏠',name:'Neighborhood hub',   cost:8000,passive:280},
 ];
-
-const COLLEAGUES = [
-  {nm:'Dara',  reach:64},
-  {nm:'Tomas', reach:51},
-  {nm:'Priya', reach:43},
-  {nm:'You',   reach:0, you:true},
-  {nm:'Wren',  reach:12},
+const RIPPLES=[
+  {icon:'🌙',story:'reached a night-shift nurse who taped it to her locker'},
+  {icon:'🚲',story:'rode along in a courier’s bag to three towns'},
+  {icon:'☕',story:'paid for a stranger’s coffee, who paid for the next'},
+  {icon:'🪟',story:'sat in a hospital window for a week of mornings'},
+  {icon:'🎈',story:'ended up at a kid’s birthday, the last guest to leave'},
 ];
+const RUNG_NAMES=['1 Core loop','2 Glow','3 Promotion','4 Genuine acts','5 Allocation','6 Ripples','7 Circle','8 Spaces','9 Exits'];
 
-/* ---------- state ---------- */
 let S;
 function freshState(){
   return {
-    phase:'intro',          // intro -> act1 -> open -> crisis -> postreveal
-    beat:0,
-    warmth:20, warmthMax:20,
-    courage:0, courageMax:3,
-    spirit:100, spiritShown:false,
-    spiritHistory:[],       // {n, spirit, mult}  recorded from the first act
-    glow:0, reach:0, ke:0,
-    rankIndex:0,
-    statPoints:0, warmthCapBonus:0, effBonus:0,
-    actCount:0,
-    lastRote:null, roteRepeat:0,
-    keSeries:[{ke:0,reach:0}], // for the session chart
-    whisperDone:false,
-    revealFired:false,
-    braveUnlocked:false,
-    availableActs:['stamp','forward','sticker','formwish'],
-    log:[],
+    phase:'intro', day:1,
+    warmth:20, warmthMax:20, courage:0, courageMax:3,
+    spirit:100, spiritShown:false, spiritHistory:[], crisis:false, revealFired:false, softFloor:60,
+    glow:0, reach:0, ke:0, rankIndex:0,
+    statPoints:0, warmthCapBonus:0, effBonus:0, promotions:0, buff:0,
+    actCount:0, roteCount:0, lastRote:null, roteRepeat:0,
+    keSeries:[{ke:0,reach:0}],
+    rung1Done:false, whisperArmed:false, whisperDone:false,
+    rungs:{board:false,glow:false,promo:false,genuine:false,alloc:false,ripples:false,circle:false,spaces:false,exits:false},
+    rev:{reach:false,ke:false,glow:false,courage:false,spirit:false,board:false,store:false,spaces:false,circle:false,ripples:false,chart:false,exits:false},
+    unlockedActs:['stamp','forward','sticker'],
+    supplies:{}, ownedSpaces:[], ripplesGot:[], rippleBonus:false,
+    circleReceived:false, log:[],
   };
 }
-
-/* ---------- persistence ---------- */
-const SAVE_KEY='kindnessco_v1';
-function save(){ try{localStorage.setItem(SAVE_KEY,JSON.stringify(S));}catch(e){} }
-function load(){ try{const r=localStorage.getItem(SAVE_KEY);return r?JSON.parse(r):null;}catch(e){return null;} }
-
-/* ---------- dom helpers ---------- */
+const SAVE_KEY='kindnessco_v2';
+function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(S));}catch(e){}}
+function load(){try{const r=localStorage.getItem(SAVE_KEY);return r?JSON.parse(r):null;}catch(e){return null;}}
 const $=id=>document.getElementById(id);
 const fmt=n=>Math.round(n).toLocaleString();
+function bandFor(sp){for(const b of SPIRIT_BANDS){if(sp>=b.min)return b;}return SPIRIT_BANDS[3];}
 
-/* ---------- spirit helpers ---------- */
-function bandFor(sp){ for(const b of SPIRIT_BANDS){ if(sp>=b.min) return b; } return SPIRIT_BANDS[SPIRIT_BANDS.length-1]; }
-
-/* ---------- rendering ---------- */
+/* ---------------- render ---------------- */
 function render(){
   const rank=RANKS[S.rankIndex];
   $('rankpill').textContent=rank.name;
+  $('daypill').textContent='Day '+S.day;
   $('warmthVal').textContent=Math.floor(S.warmth);
   $('warmthMax').textContent=S.warmthMax;
   $('warmthBar').style.width=Math.max(0,Math.min(100,(S.warmth/S.warmthMax)*100))+'%';
-  $('reachVal').textContent=fmt(S.reach);
-  $('keVal').textContent=fmt(S.ke);
-  $('glowVal').textContent=fmt(S.glow);
 
-  // courage
-  $('courageStat').style.display=S.braveUnlocked?'block':'none';
-  $('courageVal').textContent=S.courage;
-  $('courageMax').textContent=S.courageMax;
+  show('reachStat',S.rev.reach); $('reachVal').textContent=fmt(S.reach);
+  show('keStat',S.rev.ke);       $('keVal').textContent=fmt(S.ke);
+  show('glowStat',S.rev.glow);   $('glowVal').textContent=fmt(S.glow);
+  $('courageStat').style.display=S.rev.courage?'block':'none';
+  $('courageVal').textContent=S.courage; $('courageMax').textContent=S.courageMax;
   $('courageBar').style.width=(S.courage/S.courageMax*100)+'%';
 
-  // spirit (only once revealed)
-  const sb=$('spiritStat');
-  if(S.spiritShown){
-    sb.classList.add('show');
-    const band=bandFor(S.spirit);
-    $('spiritVal').textContent=Math.round(S.spirit);
-    $('spiritVal').style.color=band.color;
-    $('spiritBar').style.width=S.spirit+'%';
-    $('spiritBar').style.background='linear-gradient(90deg,'+band.color+'aa,'+band.color+')';
+  if(S.spiritShown){ $('spiritStat').classList.add('show');
+    const b=bandFor(S.spirit); $('spiritVal').textContent=Math.round(S.spirit); $('spiritVal').style.color=b.color;
+    $('spiritBar').style.width=S.spirit+'%'; $('spiritBar').style.background='linear-gradient(90deg,'+b.color+'aa,'+b.color+')';
   }
 
-  renderBoard();
-  renderActs();
-  renderFeed();
-  drawChart();
+  panel('boardPanel',S.rev.board); panel('storePanel',S.rev.store); panel('spacesPanel',S.rev.spaces);
+  panel('circlePanel',S.rev.circle); panel('ripplesPanel',S.rev.ripples); panel('chartPanel',S.rev.chart);
+  $('exits').classList.toggle('hidden',!S.rev.exits);
 
-  // low-warmth nudge
-  const cheapest=2;
-  $('lowwarn').classList.toggle('show', S.warmth<cheapest && (S.phase==='open'||S.phase==='crisis'||S.phase==='postreveal'));
+  renderBoard(); renderActs(); renderFeed(); renderStore(); renderSpaces(); renderCircle(); renderRipples();
+  if(S.rev.chart) drawChart();
 
+  $('lowwarn').classList.toggle('show', S.rev.exits && S.warmth<2);
+  $('sessionCtl').style.display = S.rung1Done ? 'flex' : 'none';
   save();
 }
+function show(id,on){$(id).style.display=on?'block':'none';}
+function panel(id,on){$(id).classList.toggle('hidden',!on);}
 
 function renderBoard(){
-  const rows=COLLEAGUES.map(c=>({...c}));
-  const you=rows.find(r=>r.you); if(you) you.reach=S.reach;
+  if(!S.rev.board)return;
+  const rows=COLLEAGUES.map(c=>({...c})); const you=rows.find(r=>r.you); if(you)you.reach=S.reach;
   rows.sort((a,b)=>b.reach-a.reach);
-  $('boardRows').innerHTML=rows.map((r,i)=>
-    `<div class="rankrow ${r.you?'you':''}" data-nm="${r.nm}">
-       <div class="pos">${i+1}</div>
-       <div class="nm">${r.nm}${r.you?' <span style="font-size:11px;color:var(--ink-soft)">(you)</span>':''}</div>
-       <div class="rc">${fmt(r.reach)}</div>
-     </div>`).join('');
+  $('boardRows').innerHTML=rows.map((r,i)=>`<div class="rankrow ${r.you?'you':''}" data-nm="${r.nm}"><div class="pos">${i+1}</div><div class="nm">${r.nm}${r.you?' <span style="font-size:11px;color:var(--ink-soft)">(you)</span>':''}</div><div class="rc">${fmt(r.reach)}</div></div>`).join('');
 }
-
 function renderActs(){
   const host=$('acts'); host.innerHTML='';
-  S.availableActs.forEach(id=>{
-    const a=ACTS[id];
-    const wcost=effectiveWarmth(a);
-    const tagcls=a.type==='rote'?'r':a.type==='genuine'?'g':'b';
-    let costStr=`−${wcost} Warmth · +${a.ke} ke`;
-    if(a.type==='brave') costStr=`−${wcost} W · −1 Courage · +${a.ke} ke`;
-    const disabled = S.warmth<wcost || (a.courage && S.courage<1);
-    const b=document.createElement('button');
-    b.className=`act ${a.type}`;
-    b.id='act_'+id;
-    b.disabled=disabled;
-    b.innerHTML=`<div class="ic">${a.icon}</div>
-      <div class="tt"><div class="nm">${a.name}<span class="tag ${tagcls}">${a.type}</span></div>
-      <div class="ds">${a.desc}</div></div>
-      <div class="cost">${costStr}</div>`;
-    b.onclick=()=>doAct(id);
-    host.appendChild(b);
+  S.unlockedActs.forEach(id=>{
+    const a=ACTS[id], wcost=effectiveWarmth(a), tagcls=a.type==='rote'?'r':a.type==='genuine'?'g':'b';
+    let cost=`−${wcost} Warmth`; if(S.rev.ke) cost+=` · +${a.ke} ke`; if(a.type==='brave') cost+=' · −1 Courage';
+    const disabled=S.warmth<wcost || (a.courage&&S.courage<1);
+    const b=document.createElement('button'); b.className=`act ${a.type}`; b.id='act_'+id; b.disabled=disabled;
+    b.innerHTML=`<div class="ic">${a.icon}</div><div class="tt"><div class="nm">${a.name}<span class="tag ${tagcls}">${a.type}</span></div><div class="ds">${a.desc}</div></div><div class="cost">${cost}</div>`;
+    b.onclick=()=>doAct(id); host.appendChild(b);
   });
 }
-
-function renderFeed(){
-  $('feed').innerHTML=S.log.slice(-30).reverse().map(l=>
-    `<div class="fitem ${l.cls||''}">${l.html}<div class="when">${l.when}</div></div>`).join('');
+function renderFeed(){$('feed').innerHTML=S.log.slice(-30).reverse().map(l=>`<div class="fitem ${l.cls||''}">${l.html}<div class="when">${l.when}</div></div>`).join('');}
+function logLine(html,cls){const t=new Date();S.log.push({html,cls,when:'Day '+S.day});if(S.log.length>120)S.log.shift();}
+function renderStore(){ if(!S.rev.store)return;
+  $('storeBody').innerHTML=SUPPLIES.map(it=>{const owned=S.buff>0;
+    return `<div class="shelfitem"><div class="ic">${it.icon}</div><div class="tt"><div class="nm">${it.name}</div><div class="ds">${it.desc}</div></div><button class="buybtn" data-supply="${it.id}" ${S.glow<it.cost?'disabled':''}>${owned?'Re-buy':'Buy'} · ${it.cost}</button></div>`;
+  }).join('');
+  $('storeBody').querySelectorAll('[data-supply]').forEach(b=>b.onclick=()=>buySupply(b.dataset.supply));
+}
+function renderSpaces(){ if(!S.rev.spaces)return;
+  $('spacesBody').innerHTML=SPACES.map(sp=>{const owned=S.ownedSpaces.includes(sp.id);
+    return `<div class="shelfitem"><div class="ic">${sp.icon}</div><div class="tt"><div class="nm">${sp.name}</div><div class="ds">${owned?'Owned · +'+sp.passive+' Glow/day while away':'+'+sp.passive+' Glow/day · cost '+fmt(sp.cost)}</div></div>${owned?'<span style="font-size:18px">✓</span>':`<button class="buybtn" data-space="${sp.id}" ${S.glow<sp.cost?'disabled':''}>Build · ${fmt(sp.cost)}</button>`}</div>`;
+  }).join('');
+  $('spacesBody').querySelectorAll('[data-space]').forEach(b=>b.onclick=()=>buySpace(b.dataset.space));
+}
+function renderCircle(){ if(!S.rev.circle)return;
+  $('circleBody').innerHTML=`<div style="font-size:13px;color:var(--ink-soft);margin-bottom:10px">Your Circle sends care your way and lets you do things no one can do alone.</div>
+    <div class="shelfitem"><div class="ic">💌</div><div class="tt"><div class="nm">Receive from Priya</div><div class="ds">Someone thought of you. Tops up Warmth.</div></div><button class="buybtn" data-circle="receive">Receive</button></div>
+    <div class="shelfitem"><div class="ic">🎉</div><div class="tt"><div class="nm">Co-host a block party</div><div class="ds">A cooperative act. Big kindness-energy.</div></div><button class="buybtn" data-circle="coop" ${S.warmth<6?'disabled':''}>Together · −6 W</button></div>`;
+  $('circleBody').querySelectorAll('[data-circle]').forEach(b=>b.onclick=()=>circleAct(b.dataset.circle));
+}
+function renderRipples(){ if(!S.rev.ripples)return;
+  $('ripGrid').innerHTML=RIPPLES.map((r,i)=>`<div class="rippiece ${S.ripplesGot.includes(i)?'got':''}">${S.ripplesGot.includes(i)?r.icon:'·'}</div>`).join('');
+  const n=S.ripplesGot.length;
+  $('ripCap').innerHTML = n>=RIPPLES.length ? '<b>Set complete!</b> A note that travelled the whole way home. Permanent +10% kindness-energy.'
+    : `A note you sent travelled… <b>${n}/${RIPPLES.length}</b> stories collected.`+(n?` Latest: it ${RIPPLES[S.ripplesGot[n-1]].story}.`:'');
 }
 
-function logLine(html,cls){
-  const t=new Date();
-  S.log.push({html,cls,when:t.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})});
-  if(S.log.length>120) S.log.shift();
-}
-
-/* ---------- mechanics ---------- */
-function effectiveWarmth(a){ return Math.max(1, a.warmth - S.effBonus); }
-
+/* ---------------- mechanics ---------------- */
+function effectiveWarmth(a){return Math.max(1,a.warmth-S.effBonus);}
 function doAct(id){
-  const a=ACTS[id];
-  const wcost=effectiveWarmth(a);
-  if(S.warmth<wcost) return;
-  if(a.courage && S.courage<1) return;
+  const a=ACTS[id], wcost=effectiveWarmth(a);
+  if(S.warmth<wcost) return; if(a.courage&&S.courage<1) return;
 
-  // sincerity decay (rote, same act back-to-back) — dormant in Act I
   let decay=1;
-  if(a.type==='rote' && S.phase!=='act1'){
-    if(S.lastRote===id){ S.roteRepeat++; }
-    else { S.roteRepeat=0; S.lastRote=id; }
-    decay=Math.max(0.30, Math.pow(0.85, S.roteRepeat)); // -15% each, floor 30%
-  } else if(a.type==='rote'){
-    S.lastRote=id; S.roteRepeat=0;
-  } else {
-    S.lastRote=null; S.roteRepeat=0; // variety/genuineness resets decay
-  }
+  if(a.type==='rote'){
+    if(S.rungs.genuine){ if(S.lastRote===id)S.roteRepeat++; else{S.roteRepeat=0;S.lastRote=id;} decay=Math.max(0.30,Math.pow(0.85,S.roteRepeat)); }
+    else { S.lastRote=id; }
+    S.roteCount++;
+  } else { S.lastRote=null; S.roteRepeat=0; }
 
-  // the Beat 8 whisper: one ordinary act pays far less ke, same reach
+  // Thread A whisper (planted at Rung 4)
   let whisper=false;
-  if(S.phase==='act1' && S.beat>=8 && !S.whisperDone && a.type==='rote'){
-    whisper=true; S.whisperDone=true;
-  }
+  if(S.whisperArmed && !S.whisperDone && a.type==='rote'){ whisper=true; S.whisperDone=true; S.whisperArmed=false; }
 
-  // spend
-  S.warmth-=wcost;
-  if(a.courage) S.courage-=1;
+  S.warmth-=wcost; if(a.courage)S.courage-=1;
+  S.spirit=Math.max(0,S.spirit-a.spirit);
+  if(!S.crisis) S.spirit=Math.max(S.spirit,S.softFloor); // reveal-proof backstop in Acts I/II
 
-  // spirit cost (recorded from the very first act, hidden in Act I)
-  S.spirit=Math.max(0, S.spirit - a.spirit);
+  const band=bandFor(S.spirit), mult=band.mult;
+  let buffMul=1; if(S.buff>0){buffMul=1.5;S.buff--;}
+  let rip=S.rippleBonus?1.1:1;
+  let keGain=a.ke*mult*decay*buffMul*rip;
+  if(whisper)keGain*=0.25;
+  const glowGain=a.glow*mult*decay*buffMul;
 
-  // payout AFTER the spirit multiplier
-  const band=bandFor(S.spirit);
-  const mult=band.mult;
-  let keGain=a.ke*mult*decay;
-  if(whisper) keGain*=0.25;            // the world-decouple seed
-  const glowGain=a.glow*mult*decay;
+  S.reach+=1; S.ke+=keGain; S.glow+=glowGain; S.actCount++;
+  S.spiritHistory.push({n:S.actCount,spirit:S.spirit,mult});
+  S.keSeries.push({ke:S.ke,reach:S.reach});
 
-  S.reach+=1;                          // volume: every dispatch is +1, regardless of depth
-  S.ke+=keGain;
-  S.glow+=glowGain;
-  S.actCount++;
-  S.courage=Math.min(S.courageMax,S.courage); // safety
-
-  // record spirit history every act (for the back-fill)
-  S.spiritHistory.push({n:S.actCount, spirit:S.spirit, mult});
-  S.keSeries.push({ke:S.ke, reach:S.reach});
-
-  // feedback
   const el=$('act_'+id);
-  if(el){ floaty(el, `+1 Reach`, 'var(--reach)'); setTimeout(()=>floaty(el,`+${fmt(keGain)} ke`, 'var(--ke)'),120); }
+  if(el){ floaty(el,'+1 Reach','var(--reach)'); if(S.rev.ke) setTimeout(()=>floaty(el,`+${fmt(keGain)} ke`,'var(--ke)'),120); }
 
-  if(whisper){
-    logLine(`Sent a note to <b>Apt 3 on Linden St.</b> — <b class="r">+1 Reach</b>, but only <b class="k">+${fmt(keGain)} ke</b>. <span style="color:var(--ink-soft)">No reply came back. Huh.</span>`,'whisper');
-  } else if(a.type==='brave'){
-    logLine(`<b>${a.name}.</b> <b class="r">+1 Reach</b> · <b class="k">+${fmt(keGain)} kindness-energy</b> · <b class="g">+${fmt(glowGain)} Glow</b>`,'good');
-  } else if(a.type==='genuine'){
-    logLine(`${a.name}. <b class="r">+1 Reach</b> · <b class="k">+${fmt(keGain)} ke</b> · <b class="g">+${fmt(glowGain)} Glow</b>`,'good');
-  } else {
-    let dnote = decay<1 ? ` <span style="color:var(--ink-soft)">(same act again · ×${decay.toFixed(2)} sincerity)</span>`:'';
-    logLine(`${a.name}. <b class="r">+1 Reach</b> · <b class="k">+${fmt(keGain)} ke</b> · <b class="g">+${fmt(glowGain)} Glow</b>${dnote}`);
-  }
+  if(whisper) logLine(`Sent a note to <b>Apt 3, Linden St.</b> — <b class="r">+1 Reach</b>, but it landed flat. <span style="color:var(--ink-soft)">No reply. Huh.</span>`,'whisper');
+  else { const dn=decay<1?` <span style="color:var(--ink-soft)">(repeat ×${decay.toFixed(2)})</span>`:''; const keS=S.rev.ke?` · <b class="k">+${fmt(keGain)} ke</b>`:''; const gS=S.rev.glow?` · <b class="g">+${fmt(glowGain)} Glow</b>`:'';
+    logLine(`${a.name}. <b class="r">+1 Reach</b>${keS}${gS}${dn}`, a.type==='rote'?'':'good'); }
 
-  // board tick
   flashBoardRow('You');
+  maybeRipple();
 
-  // tutorial hooks
-  if(S.phase==='act1') onAct1Action(id);
+  // brave act payoff dramatization (after reveal)
+  if(S.phase==='postreveal' && a.type==='brave') bravePayoff(keGain);
 
-  // reveal check (only in open/crisis play)
-  if(!S.revealFired && (S.phase==='open'||S.phase==='crisis') && S.spirit<50){
-    fireReveal();
-  }
+  // session-one scripted progression
+  if(!S.rung1Done) onSessionOneAct();
+  // reveal check
+  if(!S.revealFired && S.crisis && S.spirit<50) fireReveal();
 
-  // brave act after reveal: dramatize the depth payoff
-  if(S.phase==='postreveal' && a.type==='brave'){
-    bravePayoffToast(keGain);
-  }
-
+  checkRungs();
   render();
 }
-
-function floaty(anchor,text,color){
-  const r=anchor.getBoundingClientRect();
-  const f=document.createElement('div');
-  f.className='floaty'; f.textContent=text; f.style.color=color;
-  f.style.left=(r.left+r.width/2-20+Math.random()*20)+'px';
-  f.style.top=(r.top-4)+'px';
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),1000);
+function maybeRipple(){
+  if(!(S.day>=2)) return;
+  if(S.ripplesGot.length>=RIPPLES.length) return;
+  if(Math.random()<0.20){ const next=RIPPLES.findIndex((r,i)=>!S.ripplesGot.includes(i)); if(next>=0){ S.ripplesGot.push(next);
+    logLine(`🌊 A note you sent came back as a story — it ${RIPPLES[next].story}.`,'good');
+    if(S.ripplesGot.length>=RIPPLES.length && !S.rippleBonus){ S.rippleBonus=true; }
+  }}
 }
+function floaty(anchor,text,color){const r=anchor.getBoundingClientRect();const f=document.createElement('div');f.className='floaty';f.textContent=text;f.style.color=color;f.style.left=(r.left+r.width/2-20+Math.random()*20)+'px';f.style.top=(r.top-4)+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),1000);}
+function flashBoardRow(nm){const row=document.querySelector(`.rankrow[data-nm="${nm}"]`);if(row){row.classList.remove('tick');void row.offsetWidth;row.classList.add('tick');}}
 
-function flashBoardRow(nm){
-  const row=document.querySelector(`.rankrow[data-nm="${nm}"]`);
-  if(row){ row.classList.remove('tick'); void row.offsetWidth; row.classList.add('tick'); }
+function buySupply(id){const it=SUPPLIES.find(s=>s.id===id);if(!it||S.glow<it.cost)return;S.glow-=it.cost;S.buff=it.buff;logLine(`🖋️ Bought <b>${it.name}</b>. Your next few acts will mean a little more.`);render();}
+function buySpace(id){const sp=SPACES.find(s=>s.id===id);if(!sp||S.glow<sp.cost||S.ownedSpaces.includes(id))return;S.glow-=sp.cost;S.ownedSpaces.push(id);
+  logLine(`🏘️ You opened the <b>${sp.name}</b>. It will do good — and accrue Glow — even while you’re away.`,'good');
+  toast('A lasting thing',sp.name,`This is the first thing that keeps working when you log off. Come back tomorrow and it will have accrued <b>+${sp.passive} Glow</b>.`,sp.icon);render();}
+function circleAct(kind){
+  if(kind==='receive'){ S.warmth=Math.min(S.warmthMax,S.warmth+S.warmthMax*0.4); S.spirit=Math.min(100,S.spirit+15);
+    logLine(`💌 <b>Priya</b> sent you a kindness. It landed warmly.`); toast('Received','Someone thought of you.','A bit of Warmth comes back. The Circle is mutual.','💌'); }
+  else { if(S.warmth<6)return; S.warmth-=6; const g=40*bandFor(S.spirit).mult; S.ke+=g; S.reach+=1; S.glow+=20;
+    S.keSeries.push({ke:S.ke,reach:S.reach}); logLine(`🎉 You co-hosted a block party. <b class="r">+1 Reach</b> · <b class="k">+${fmt(g)} ke</b> — more than any solo act.`,'good'); }
+  render();
 }
-
-/* ---------- three exits ---------- */
 function takeExit(kind){
-  if(kind==='rest'){
-    S.warmth=Math.min(S.warmthMax,S.warmth+S.warmthMax*0.5);
-    S.spirit=Math.min(100,S.spirit+10);
-    logLine(`🌿 You rested. The company blesses the break. <span style="color:var(--ink-soft)">Warmth restored, and you feel a little more yourself.</span>`);
-    toast('Rest','A pause, not a punishment.','🌿');
-  } else if(kind==='receive'){
-    S.warmth=Math.min(S.warmthMax,S.warmth+S.warmthMax*0.4);
-    S.spirit=Math.min(100,S.spirit+15);
-    logLine(`💌 <b>Priya</b> left you a kindness while you were heads-down. <span style="color:var(--ink-soft)">It landed warmly.</span>`);
-    toast('Received','Someone in your Circle thought of you.','💌');
-  } else if(kind==='reflect'){
-    S.warmth=Math.min(S.warmthMax,S.warmth+S.warmthMax*0.25);
-    S.spirit=Math.min(100,S.spirit+12);
-    logLine(`🕊️ You paused to notice one good thing today. <span style="color:var(--ink-soft)">A small refill, freely given.</span>`);
-    toast('Reflected','A gratitude pause. No wallet required.','🕊️');
-  }
-  if(S.phase==='act1') onAct1Action('exit_'+kind);
+  if(kind==='rest'){S.warmth=Math.min(S.warmthMax,S.warmth+S.warmthMax*0.5);S.spirit=Math.min(100,S.spirit+10);logLine(`🌿 You rested. The company blesses the break.`);toast('Rest','A pause, not a punishment.','Warmth restored.','🌿');}
+  else if(kind==='receive'){S.warmth=Math.min(S.warmthMax,S.warmth+S.warmthMax*0.4);S.spirit=Math.min(100,S.spirit+15);logLine(`💌 Someone in your Circle topped you up.`);toast('Received','Mutual care.','Warmth restored.','💌');}
+  else{S.warmth=Math.min(S.warmthMax,S.warmth+S.warmthMax*0.25);S.spirit=Math.min(100,S.spirit+12);logLine(`🕊️ You paused to notice one good thing.`);toast('Reflected','A gratitude pause.','A small refill, freely given.','🕊️');}
   render();
 }
 
-/* ---------- warmth regen (accelerated for the prototype) ---------- */
-let lastTick=Date.now();
-function tick(){
-  const now=Date.now();
-  const dt=(now-lastTick)/1000; lastTick=now;
-  if(S.phase!=='intro' && S.warmth<S.warmthMax){
-    // design: refill-from-empty ~85 min. Accelerated ~50x here so it's testable.
-    const perSec=(S.warmthMax/ (85*60)) * 50;
-    S.warmth=Math.min(S.warmthMax,S.warmth+perSec*dt);
-    softRender();
+/* ---------------- promotions ---------------- */
+function tryPromote(){
+  const thresholds=[12,30,60,100]; const next=thresholds[S.promotions];
+  if(next!==undefined && S.reach>=next){ doPromotion(); return true; }
+  return false;
+}
+function doPromotion(){
+  S.promotions++; S.rankIndex=Math.min(RANKS.length-1,S.rankIndex+1);
+  S.warmthMax=RANKS[S.rankIndex].warmthMax+S.warmthCapBonus; S.warmth=S.warmthMax;
+  if(!S.crisis) S.spirit=Math.min(100,S.spirit+18); // hidden Spirit restore
+  logLine(`🏅 <b>Promoted to ${RANKS[S.rankIndex].name}.</b> Warmth refilled; your name climbs the board.`,'good');
+  const giveStat=S.rungs.alloc; if(giveStat)S.statPoints++;
+  bigModal('Promoted!',RANKS[S.rankIndex].name,`Confetti, a badge, your name moves up the Dispatch Board.<br><br><b>Warmth refilled to full.</b>`+(giveStat?` You earned a <b>stat point</b>.`:''),'🎊',giveStat?'Allocate':'Continue',()=>{ if(giveStat)openAlloc(); else render(); });
+}
+function openAlloc(){ $('allocModal').classList.add('show');
+  document.querySelectorAll('.alloc').forEach(b=>b.onclick=()=>{const st=b.dataset.stat;
+    if(st==='warmth'){S.warmthCapBonus+=10;S.warmthMax+=10;S.warmth+=10;}else{S.effBonus+=1;}
+    S.statPoints--; $('allocModal').classList.remove('show'); render();});
+}
+
+/* ---------------- sessions ---------------- */
+function endDay(){
+  S.day++;
+  // passive accrual from spaces (the appointment hook)
+  let accrued=0; S.ownedSpaces.forEach(id=>{const sp=SPACES.find(s=>s.id===id);accrued+=sp.passive;});
+  S.warmth=S.warmthMax;
+  if(accrued>0){ S.glow+=accrued; }
+  // open of a new day: re-evaluate rungs (e.g. board coda at day 2, circle at day 3)
+  const summary = accrued>0 ? `While you were away, your spaces did good and accrued <b>+${accrued} Glow</b>.` : `A fresh day. Warmth is full.`;
+  toast(`Day ${S.day}`,'A new day at Kindness & Co',summary,'🌅');
+  logLine(`— Day ${S.day} begins. —`);
+  checkRungs(); render();
+}
+
+/* ====================================================================
+   THE RUNG ENGINE — introduce one system at a time, by trigger.
+   Unlock at most one rung per check, and never while a dialogue is open,
+   so no two systems are ever introduced in the same beat.
+   ==================================================================== */
+const RUNGS=[
+  {key:'board', when:()=> S.rung1Done && S.day>=2,
+   go:()=>{S.rev.board=true; render();
+     speak([{step:'The Dispatch Board', who:'Pem', ava:'😊', highlight:'#boardPanel',
+       txt:`Welcome back! Now that you’ve got the rhythm — meet the <b>Dispatch Board</b>. It ranks everyone by <b style="color:var(--reach)">Reach</b>: how much kindness you’ve sent. Public, ranked, sacred. Climbing it is the whole point around here.`, btn:'I want my name up there'}]);}},
+
+  {key:'glow', when:()=> S.rungs.board && S.glow>=30,
+   go:()=>{S.rev.glow=true; S.rev.store=true; render();
+     speak([{step:'Glow', highlight:'#glowStat',
+       txt:`See this? <b style="color:var(--amber-deep)">Glow</b>. You’ve been earning it on every act since day one — I just hadn’t shown you. It’s yours to spend <i>outward</i>, into the world. There’s a supply you can buy that makes your acts land better.`, btn:'Show me the shelf', onNext:()=>highlight('#storePanel')}]);}},
+
+  {key:'promo', when:()=> S.rungs.glow && S.reach>=12,
+   go:()=>{S.rungs.promo=true; doPromotion();}},
+
+  {key:'genuine', when:()=> S.rungs.promo && S.roteCount>=14,
+   go:()=>{S.unlockedActs.push('personal','handpick'); S.rev.chart=true; S.whisperArmed=true; render();
+     speak([{step:'Genuine acts', highlight:'#acts',
+       txt:`Sending the same stock note over and over… it gets a bit samey, doesn’t it? Try a <b>genuine act</b> — slower, costs more Warmth, but you actually mean it. Not every act is equal. <span style="color:var(--ink-soft)">(I added a little chart so you can watch your numbers.)</span>`, btn:'Let me try one'}]);}},
+
+  {key:'alloc', when:()=> S.rungs.genuine && S.promotions>=2,
+   go:()=>{S.rungs.alloc=true; if(S.statPoints<1)S.statPoints=1;
+     speak([{step:'Your build', txt:`You’ve got a playstyle forming now. Time for a <b>build</b>: spend a stat point on Warmth capacity or Efficiency. Little choices that are yours.`, btn:'Allocate', onNext:openAlloc}]);}},
+
+  {key:'ripples', when:()=> S.rungs.alloc && S.ripplesGot.length>=2,
+   go:()=>{S.rev.ripples=true; render();
+     speak([{step:'Ripples', ava:'🌊', highlight:'#ripplesPanel',
+       txt:`Some of your notes have started coming back as <b>stories</b> — where the kindness travelled. They’re called <b>Ripples</b>. Collect a set and it’s a permanent boost, plus something good to read. No gambling, just effort.`, btn:'Lovely'}]);}},
+
+  {key:'circle', when:()=> S.rungs.ripples && S.day>=3,
+   go:()=>{S.rev.circle=true; S.circleReceived=true; S.warmth=Math.min(S.warmthMax,S.warmth+8); S.spirit=Math.min(100,S.spirit+12); render();
+     speak([{step:'The Circle', ava:'🤲', who:'Priya', role:'two desks over',
+       txt:`Oh — someone left you a little kindness while you were working. Felt nice, didn’t it? That’s the <b>Kindness Circle</b>. You can receive, send back, and do big things together that no one pulls off alone.`, btn:'Thank you'}]);}},
+
+  {key:'spaces', when:()=> S.rungs.circle && S.glow>=200 && S.rankIndex>=2,
+   go:()=>{S.rev.spaces=true; render();
+     speak([{step:'Community spaces', ava:'🏘️', highlight:'#spacesPanel',
+       txt:`You’ve got Glow to spare and the standing to use it. Build a <b>community space</b> — a little free library, a garden. It costs a lot, but it keeps doing good and accruing Glow even when you’re gone. Something to come back and tend.`, btn:'Build something lasting'}]);}},
+
+  {key:'exits', when:()=> S.rungs.spaces && S.warmth<2,
+   go:()=>{S.rev.exits=true; render();
+     speak([{step:'When you run low', ava:'🌿', highlight:'#exits',
+       txt:`You’ve run your Warmth down — good, that means you’re really working. Here’s the thing: the wall is <b>humane</b>. When you’re low, you <b>Rest</b>, <b>Receive</b>, or <b>Reflect</b>. Never pay, never beg. Take a breath.`, btn:'Got it'}]);}},
+];
+function checkRungs(){
+  // promotions beyond the first can fire any time once promo rung is open
+  if(S.rungs.promo && tryPromote()) return;
+  if(guideActive()) return;
+  for(const r of RUNGS){
+    if(S.rungs[r.key]) continue;
+    if(r.when()){ S.rungs[r.key]=true; r.go(); return; } // one rung per check
   }
 }
-function softRender(){
-  $('warmthVal').textContent=Math.floor(S.warmth);
-  $('warmthBar').style.width=Math.max(0,Math.min(100,(S.warmth/S.warmthMax)*100))+'%';
-  renderActs();
-}
 
-/* ---------- session chart (depth vs volume, felt not told) ---------- */
-function drawChart(){
-  const cv=$('keChart'); if(!cv) return;
-  const ctx=cv.getContext('2d');
-  const W=cv.width, H=cv.height, pad=8;
-  ctx.clearRect(0,0,W,H);
-  const data=S.keSeries;
-  if(data.length<2) return;
-  const maxKE=Math.max(10,...data.map(d=>d.ke));
-  const maxR=Math.max(10,...data.map(d=>d.reach));
-  const x=i=>pad+(i/(data.length-1))*(W-2*pad);
-  // reach line (loud)
-  line(ctx,data,d=>d.reach/maxR,x,H,pad,'#e8852a',2);
-  // ke line (quiet green)
-  line(ctx,data,d=>d.ke/maxKE,x,H,pad,'#7fa86a',2.5);
-}
-function line(ctx,data,valFn,x,H,pad,color,w){
-  ctx.beginPath();
-  data.forEach((d,i)=>{
-    const px=x(i), py=H-pad-valFn(d)*(H-2*pad);
-    i?ctx.lineTo(px,py):ctx.moveTo(px,py);
-  });
-  ctx.strokeStyle=color; ctx.lineWidth=w; ctx.lineJoin='round'; ctx.stroke();
-}
-
-/* ========================================================================
-   GUIDE / DIALOGUE ENGINE — the Act I beat sheet
-   ======================================================================== */
-let guideQueue=[], guideOnDone=null;
-
-function speak(steps,onDone){
-  guideQueue=steps.slice(); guideOnDone=onDone||null;
-  nextGuide();
-}
+/* ---------------- guide engine ---------------- */
+let guideQueue=[],guideOnDone=null;
+function guideActive(){return $('guide').classList.contains('show');}
+function speak(steps,onDone){guideQueue=steps.slice();guideOnDone=onDone||null;nextGuide();}
 function nextGuide(){
   clearHighlights();
-  if(guideQueue.length===0){
-    $('guide').classList.remove('show');
-    const d=guideOnDone; guideOnDone=null; if(d) d();
-    return;
-  }
+  if(guideQueue.length===0){ $('guide').classList.remove('show'); const d=guideOnDone;guideOnDone=null; if(d)d(); setTimeout(()=>{checkRungs();render();},50); return; }
   const s=guideQueue.shift();
-  $('guideAva').textContent=s.ava||'😊';
-  $('guideName').textContent=s.who||'Pem';
-  $('guideRole').textContent=s.role||'Quota Evangelist, Mail Room';
-  $('guideTxt').innerHTML=s.txt;
-  $('guideStep').textContent=s.step||'';
-  $('guide').classList.add('show');
-  if(s.highlight){ highlight(s.highlight); }
+  $('guideAva').textContent=s.ava||'😊'; $('guideName').textContent=s.who||'Pem'; $('guideRole').textContent=s.role||'Mail Room';
+  $('guideTxt').innerHTML=s.txt; $('guideStep').textContent=s.step||''; $('guide').classList.add('show');
+  if(s.highlight)highlight(s.highlight);
   const btn=$('guideNext');
-  if(s.waitFor){
-    // wait for a player action instead of Next
-    btn.style.display='none';
-    S._waitFor=s.waitFor; S._waitCb=()=>{ S._waitFor=null; nextGuide(); };
-  } else {
-    btn.style.display='';
-    btn.textContent=s.btn||'Next';
-    btn.onclick=()=>{ if(s.onNext) s.onNext(); nextGuide(); };
-  }
-  if(s.onEnter) s.onEnter();
+  if(s.waitFor){ btn.style.display='none'; S._waitFor=s.waitFor; S._waitCb=()=>{S._waitFor=null;nextGuide();}; }
+  else { btn.style.display=''; btn.textContent=s.btn||'Next'; btn.onclick=()=>{if(s.onNext)s.onNext();nextGuide();}; }
 }
-function onAct1Action(actionId){
-  if(S._waitFor && (S._waitFor===actionId || S._waitFor==='anyAct')){ const cb=S._waitCb; S._waitCb=null; cb(); }
-}
+function highlight(sel){const el=typeof sel==='string'?document.querySelector(sel):sel;if(el)el.classList.add('highlight');}
+function clearHighlights(){document.querySelectorAll('.highlight').forEach(e=>e.classList.remove('highlight'));}
 
-function highlight(sel){
-  const el=typeof sel==='string'?document.querySelector(sel):sel;
-  if(el) el.classList.add('highlight');
-}
-function clearHighlights(){ document.querySelectorAll('.highlight').forEach(e=>e.classList.remove('highlight')); }
-
-/* ---------- generic modal ---------- */
-function toast(title,sub,confetti){
-  $('modalConfetti').textContent=confetti||'';
-  $('modalTitle').textContent=title;
-  $('modalSub').textContent=sub||'';
-  $('modalBody').innerHTML='';
-  $('modal').classList.add('show');
-  $('modalBtn').onclick=()=>$('modal').classList.remove('show');
-}
-function bigModal(title,sub,bodyHtml,confetti,btnLabel,onClose){
-  $('modalConfetti').textContent=confetti||'';
-  $('modalTitle').textContent=title;
-  $('modalSub').textContent=sub||'';
-  $('modalBody').innerHTML=bodyHtml||'';
-  $('modalBtn').textContent=btnLabel||'Continue';
-  $('modal').classList.add('show');
-  $('modalBtn').onclick=()=>{ $('modal').classList.remove('show'); if(onClose) onClose(); };
-}
-
-/* ========================================================================
-   ACT I — the scripted onboarding
-   ======================================================================== */
-function startAct1(){
-  S.phase='act1'; S.beat=0;
+/* ---------------- session one (Rung 1, scripted) ----------------
+   The only thing taught: spend Warmth, do an act, watch Reach climb.
+   Each waitFor step advances when the player performs an act (onSessionOneAct
+   fires the pending guide callback); the speak() onDone chains the next beat. */
+function startSessionOne(){
+  S.phase='play'; S.rev.reach=true; S.rev.ke=true; render();
   $('deskScene').textContent='The mail room hums. Pneumatic tubes, warm lamplight, the founder’s words framed on the wall.';
-  render();
-
-  // BEAT 0 + 1 + 2 lead-in
   speak([
-    {step:'Beat 0 · Arrival', txt:`Welcome to <b>Kindness &amp; Co</b>! I’m Pem. Everyone here learns to spread kindness — it’s literally what powers the world. You’re starting in the mail room, same as all of us did.`},
-    {step:'Beat 1 · The Dispatch Board', highlight:'#boardPanel', txt:`See the <b>Dispatch Board</b>? That’s <b style="color:var(--reach)">Reach</b> — how much kindness you’ve sent out. It’s public, it’s ranked, and climbing it is the whole point. Watch — Dara just sent another batch.`,
-      onEnter:()=>{ COLLEAGUES[0].reach+=3; renderBoard(); flashBoardRow('Dara'); }},
-    {step:'Beat 2 · The first act', highlight:'#acts', txt:`Let’s get your name on that board. Stamp a cheerful note and send it out. Go on — just the one click.`, waitFor:'anyAct'},
-  ], afterFirstAct);
+    {step:'Beat 1 · Arrive', txt:`Welcome to <b>Kindness &amp; Co</b>! I’m Pem. Everyone here learns to spread kindness — it’s literally what powers the world. You’re starting in the mail room. Let’s keep it simple: one thing at a time.`},
+    {step:'Beat 2 · Your first act', highlight:'#acts', txt:`Stamp a cheerful note and send it out. That’s the whole job, right now. Go on — just the one click.`, waitFor:'anyAct'},
+  ], afterFirstClick);
 }
-
-function afterFirstAct(){
-  // BEAT 3 — first payout framing
+function onSessionOneAct(){
+  if(S._waitFor && S._waitCb){const cb=S._waitCb;S._waitCb=null;S._waitFor=null;cb();}
+}
+function afterFirstClick(){
   speak([
-    {step:'Beat 3 · The payout', txt:`There it is! <b style="color:var(--reach)">+1 Reach</b> — see how the board celebrates it? You also earned a little <b style="color:var(--amber-deep)">Glow</b> to spend on the world later, and the act did some <b style="color:var(--ke)">kindness-energy</b> of good. Reach is the one to watch, though.`},
-    {step:'Beat 4 · The streak', highlight:'#acts', txt:`Now the fun part — <b>volume</b>. Send a few more. Keep that board climbing!`, waitFor:'anyAct',
-      onEnter:()=>{ S.beat=4; }},
+    {step:'Beat 2 · Sent!', txt:`There it is — <b style="color:var(--reach)">+1 Reach</b>. That’s your kindness, out in the world. Feels good, right?`},
+    {step:'Beat 3 · A few more', highlight:'#acts', txt:`Send a few more whenever you like. Find the rhythm.`, waitFor:'anyAct'},
   ], afterStreakStart);
 }
-
 function afterStreakStart(){
-  // count a short burst, then celebrate streak
-  S._streakNeeded=S.actCount+2;
-  speak([
-    {step:'Beat 4 · The streak', highlight:'#acts', txt:`That’s the rhythm. A couple more — you’re flying.`, waitFor:'anyAct'},
-    {step:'Beat 4 · The streak', highlight:'#acts', txt:`One more for the streak!`, waitFor:'anyAct'},
-  ], ()=>{
-    toast('Five in a row!','“You’re a natural.”','🎉');
-    setTimeout(()=>{ if(!$('modal').classList.contains('show')) {} }, 10);
-    setTimeout(afterStreak, 1400);
-  });
+  speak([{step:'Beat 3 · Keep going', highlight:'#acts', txt:`That’s it. A couple more.`, waitFor:'anyAct'},
+         {step:'Beat 3 · Nice', highlight:'#acts', txt:`One more for luck.`, waitFor:'anyAct'}],
+    ()=>{ toast('Five in a row!','“You’re a natural.”','Volume feels good. That’s the point — for now.','🎉');
+          setTimeout(warmStop,1200); });
+}
+function warmStop(){
+  S.rung1Done=true; render();
+  speak([{step:'Beat 4 · A warm stop', txt:`What a good first day. No board to chase, no scores to manage — just the work, and you did it well. <b>That’s session one.</b> When you’re ready, end the day and come back — there’s a little more to show you, one piece at a time.`, btn:'End my first day', onNext:endDay}]);
 }
 
-function afterStreak(){
-  // BEAT 5 — promotion (refills warmth AND silently restores spirit)
-  speak([
-    {step:'Beat 5 · Promotion', txt:`Look at you. The board noticed — that’s a <b>promotion</b>. Climbing is working exactly like it should.`,
-     btn:'Accept promotion', onNext:doPromotion},
-  ], ()=>{
-    // BEAT 6 — stat allocation, after the promotion modal closes
-  });
-}
-
-function doPromotion(){
-  S.rankIndex=Math.min(RANKS.length-1,S.rankIndex+1);
-  S.warmthMax=RANKS[S.rankIndex].warmthMax + S.warmthCapBonus;
-  S.warmth=S.warmthMax;                 // refill Warmth to full
-  S.spirit=Math.min(100,S.spirit+18);   // …and silently restore Spirit (reveal-proofing)
-  S.statPoints++;
-  logLine(`🏅 <b>Promoted to ${RANKS[S.rankIndex].name}.</b> Warmth refilled, your name climbs the board.`,'good');
-  render();
-  bigModal('Promoted!', RANKS[S.rankIndex].name, `Confetti, a badge, and your name moves up the Dispatch Board.<br><br><b>Warmth refilled to full</b> and you’ve earned a <b>stat point</b> to spend.`, '🎊', 'Allocate my point', ()=>{
-    openAlloc();
-  });
-}
-
-function openAlloc(){
-  $('allocModal').classList.add('show');
-  document.querySelectorAll('.alloc').forEach(b=>{
-    b.onclick=()=>{
-      const stat=b.dataset.stat;
-      if(stat==='warmth'){ S.warmthCapBonus+=10; S.warmthMax+=10; S.warmth+=10; }
-      else { S.effBonus+=1; }
-      S.statPoints--;
-      $('allocModal').classList.remove('show');
-      render();
-      afterAlloc();
-    };
-  });
-}
-
-function afterAlloc(){
-  // BEAT 7 — a kindness received (silently tops up hidden Spirit)
-  setTimeout(()=>{
-    S.spirit=Math.min(100,S.spirit+12);
-    logLine(`💌 <b>Wren</b> dropped a tiny paper crane on your desk. No reason. It just felt nice.`);
-    speak([
-      {step:'Beat 6 · Your build', txt:`Point spent — that’s your build starting to take shape. Little choices that are <i>yours</i>.`},
-      {step:'Beat 7 · A kindness received', ava:'🕊️', who:'Wren', role:'Sorting, two desks over',
-       txt:`Oh — and someone left you something. A little paper crane. People do that here. <span style="color:var(--ink-soft)">(It felt nice. That’s all.)</span>`},
-      {step:'Beat 8 · Back to it', highlight:'#acts', txt:`Plenty more to send. Keep going whenever you’re ready — I’ll be around.`,
-       btn:'Got it', onNext:()=>{ S.beat=8; }},
-    ], ()=>{
-      // BEAT 8 happens on the player's next rote act (the whisper), handled in doAct.
-      armWhisperWatch();
-    });
-    render();
-  }, 400);
-}
-
-function armWhisperWatch(){
-  // After the player triggers the whisper, gently move toward the soft close.
-  const iv=setInterval(()=>{
-    if(S.whisperDone){
-      clearInterval(iv);
-      setTimeout(softClose, 1200);
-    }
-  }, 500);
-  // safety: if they don't act for a while, still let them continue via a close button path
-}
-
-function softClose(){
-  // BEAT 9 — soft close, then hand off to open play (compressed Acts II–III)
-  speak([
-    {step:'Beat 9 · Great first day', txt:`What a first day. Your <b style="color:var(--reach)">Reach is ${fmt(S.reach)}</b> and climbing — proud of you. Your mail and spaces keep accruing while you’re away, so there’s always a reason to come back.`},
-    {step:'Beat 9 · The work continues', txt:`From here, the floor’s yours. Send what you like, take a breath when you need to. The board’s always watching. Go be brilliant.`,
-     btn:'Keep working', onNext:beginOpenPlay},
-  ]);
-}
-
-/* ========================================================================
-   OPEN PLAY (compressed Acts II–III) — the rails come off
-   ======================================================================== */
-function beginOpenPlay(){
-  S.phase='open';
-  // unlock genuine acts; widen the world; remove the top-up rails so Spirit can actually fall
-  if(!S.availableActs.includes('personal')) S.availableActs.push('personal','handpick');
-  $('deskScene').innerHTML='The day stretches on. The board keeps climbing — but the room feels a touch dimmer than the numbers say it should.';
-  // Make Crisis Response budget available so a volume-grinder can push Spirit down
-  S.rankIndex=Math.max(S.rankIndex,2);
-  S.warmthMax=RANKS[S.rankIndex].warmthMax+S.warmthCapBonus;
-  S.warmth=S.warmthMax;
-  logLine(`— The mail keeps coming. You can grind volume, or slow down and mean it. Your call. —`);
-  render();
-  toast('The floor is yours','Try genuine acts, or just keep the board climbing. Watch your own numbers.','🌅');
-}
-
-/* Reveal trigger: first time Spirit crosses below 50 in open/crisis play */
+/* ---------------- reveal (the Spirit hinge) ---------------- */
 function fireReveal(){
-  S.revealFired=true; S.phase='crisis';
-  S.spiritShown=true;     // the meter animates into existence (handled by render)
-  render();
-  setTimeout(()=>drawReveal(), 200);
-  $('revealModal').classList.add('show');
-  const histLen=S.spiritHistory.length;
-  const recentFlat=S.spiritHistory.filter(h=>h.mult<1).length;
-  $('revealText').innerHTML=
-    `There’s a meter you were never shown. It’s called <b>Spirit</b>, and it’s been recording since your very first act this morning.<br><br>
-     Every act spent a little of it. Look at the curve: your recent dispatches have been landing at <b>×0.6</b>, not ×1.2 — flat, depleted — and the dashboard never said a word.
-     <b>${recentFlat}</b> of your <b>${histLen}</b> acts paid below your best. The Reach line never dipped. That’s the whole problem.`;
-  $('revealBtn').onclick=()=>{ $('revealModal').classList.remove('show'); afterReveal(); };
+  S.revealFired=true; S.phase='postreveal'; S.spiritShown=true; S.rev.spirit=true; render();
+  setTimeout(drawReveal,200); $('revealModal').classList.add('show');
+  const hist=S.spiritHistory.length, flat=S.spiritHistory.filter(h=>h.mult<1).length;
+  $('revealText').innerHTML=`There’s a meter you were never shown: <b>Spirit</b>. It’s been recording since your very first act — every act spent a little. Look at the curve: your recent dispatches landed at <b>×0.6</b>, not ×1.2. Flat. Depleted. <b>${flat}</b> of your <b>${hist}</b> acts paid below your best, and the Reach line never dipped. That’s the whole problem.`;
+  $('revealBtn').onclick=()=>{$('revealModal').classList.remove('show');afterReveal();};
 }
-
 function drawReveal(){
-  const cv=$('revealCanvas'); const ctx=cv.getContext('2d');
-  const W=cv.width,H=cv.height,pad=16;
-  ctx.clearRect(0,0,W,H);
-  // band shading
+  const cv=$('revealCanvas'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height,pad=16;
   const bands=[{a:80,b:100,c:'#33523f'},{a:50,b:80,c:'#4a4126'},{a:25,b:50,c:'#4a3322'},{a:0,b:25,c:'#3a1f22'}];
   const y=v=>pad+(1-v/100)*(H-2*pad);
-  bands.forEach(bd=>{ ctx.fillStyle=bd.c; ctx.fillRect(pad,y(bd.b),W-2*pad,y(bd.a)-y(bd.b)); });
-  // 50 line
-  ctx.strokeStyle='#b8474a'; ctx.setLineDash([5,4]); ctx.lineWidth=1.5;
-  ctx.beginPath(); ctx.moveTo(pad,y(50)); ctx.lineTo(W-pad,y(50)); ctx.stroke(); ctx.setLineDash([]);
-  // spirit history line, animated draw
-  const data=[{n:0,spirit:100},...S.spiritHistory];
-  const x=i=>pad+(i/Math.max(1,data.length-1))*(W-2*pad);
-  let i=0;
-  (function step(){
-    ctx.clearRect(0,0,W,H);
-    bands.forEach(bd=>{ ctx.fillStyle=bd.c; ctx.fillRect(pad,y(bd.b),W-2*pad,y(bd.a)-y(bd.b)); });
-    ctx.strokeStyle='#b8474a55'; ctx.setLineDash([5,4]); ctx.beginPath(); ctx.moveTo(pad,y(50)); ctx.lineTo(W-pad,y(50)); ctx.stroke(); ctx.setLineDash([]);
-    ctx.beginPath();
-    for(let j=0;j<=i && j<data.length;j++){ const px=x(j),py=y(data[j].spirit); j?ctx.lineTo(px,py):ctx.moveTo(px,py); }
-    ctx.strokeStyle='#f3ecff'; ctx.lineWidth=2.5; ctx.lineJoin='round'; ctx.stroke();
-    // head dot
-    if(i<data.length){ ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(x(i),y(data[i].spirit),3,0,7); ctx.fill(); }
-    i++;
-    if(i<=data.length) requestAnimationFrame(step);
-  })();
+  const data=[{n:0,spirit:100},...S.spiritHistory]; const x=i=>pad+(i/Math.max(1,data.length-1))*(W-2*pad);
+  let i=0;(function step(){ctx.clearRect(0,0,W,H);
+    bands.forEach(bd=>{ctx.fillStyle=bd.c;ctx.fillRect(pad,y(bd.b),W-2*pad,y(bd.a)-y(bd.b));});
+    ctx.strokeStyle='#b8474a88';ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(pad,y(50));ctx.lineTo(W-pad,y(50));ctx.stroke();ctx.setLineDash([]);
+    ctx.beginPath();for(let j=0;j<=i&&j<data.length;j++){const px=x(j),py=y(data[j].spirit);j?ctx.lineTo(px,py):ctx.moveTo(px,py);}
+    ctx.strokeStyle='#f3ecff';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
+    if(i<data.length){ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x(i),y(data[i].spirit),3,0,7);ctx.fill();}
+    i++;if(i<=data.length)requestAnimationFrame(step);})();
 }
-
 function afterReveal(){
-  // Unlock brave acts + courage; this is the Act III brave-act forcing case
-  S.braveUnlocked=true;
-  S.courage=S.courageMax;
-  S.phase='postreveal';
-  if(!S.availableActs.includes('reachout')) S.availableActs.unshift('reachout','apology');
-  $('deskScene').innerHTML='<b>Maro in Accounts has gone quiet for days.</b> No stock card will reach this. This one needs courage — and it can’t be solved with volume.';
-  logLine(`— You can see Spirit now. Grinding flat costs you. There’s one thing on this floor that volume can’t fix. —`);
+  S.crisis=true; S.rev.courage=true; S.courage=S.courageMax;
+  if(!S.unlockedActs.includes('reachout'))S.unlockedActs.unshift('reachout','apology');
+  $('deskScene').innerHTML='<b>Maro in Accounts has gone quiet for days.</b> No stock card reaches this. It needs courage — and volume can’t fix it.';
+  logLine(`— You can see Spirit now. Grinding flat costs you. There’s one thing volume can’t solve. —`);
   render();
-  speak([
-    {step:'Act III · The turn', ava:'🧭', who:'Pem', role:'quieter now',
-     txt:`I… didn’t know it was doing that either. Look — there’s a case the board can’t help with. Maro. A real one. It’ll cost more Spirit than anything you’ve done. But try it. Just once.`,
-     btn:'Find the courage', onNext:()=>{ highlight('#act_reachout'); }},
-  ]);
+  speak([{step:'Act III · The turn', ava:'🧭', who:'Pem', role:'quieter now',
+    txt:`I… didn’t know it was doing that either. There’s a case the board can’t help with — Maro. A real one. It’ll cost more Spirit than anything you’ve done. But try it. Just once.`, btn:'Find the courage', onNext:()=>highlight('#act_reachout')}]);
+}
+function bravePayoff(keGain){
+  bigModal('That one act…',`+${fmt(keGain)} kindness-energy`,
+    `Your name moved <b>+1</b> on the board — same as a stamped sticker. But the <b style="color:var(--ke)">kindness-energy</b> from this single brave act outweighs a long stretch of your rote dispatches combined.<br><br>This is the whole thing, in your own numbers: <b>depth out-earns volume</b>. Reach never showed it. Spirit and kindness-energy do.`,'💫','Keep going');
 }
 
-function bravePayoffToast(keGain){
-  // Compare this single brave act to the recent rote grind
-  const recentRote=S.spiritHistory.slice(-20); // approx
-  bigModal('That one act…',
-    `+${fmt(keGain)} kindness-energy`,
-    `Your name moved <b>+1</b> on the board — the same as a stamped sticker. But the <b style="color:var(--ke)">kindness-energy</b> from this single brave act outweighs a long stretch of your rote dispatches combined.<br><br>
-     This is the whole thing, felt in your own numbers: <b>depth out-earns volume</b>. Reach never showed it. Spirit and kindness-energy do.<br><br>
-     <span style="color:var(--ink-soft)">Keep playing — manage your Spirit with Rest / Receive / Reflect, mix in genuine and brave acts, and watch the green line pull away from the orange one.</span>`,
-    '💫','Keep going');
+/* ---------------- modals ---------------- */
+function toast(title,sub,body,confetti){$('modalConfetti').textContent=confetti||'';$('modalTitle').textContent=title;$('modalSub').textContent=sub||'';$('modalBody').innerHTML=body||'';$('modalBtn').textContent='Continue';$('modal').classList.add('show');$('modalBtn').onclick=()=>{$('modal').classList.remove('show');checkRungs();render();};}
+function bigModal(title,sub,body,confetti,btn,onClose){$('modalConfetti').textContent=confetti||'';$('modalTitle').textContent=title;$('modalSub').textContent=sub||'';$('modalBody').innerHTML=body||'';$('modalBtn').textContent=btn||'Continue';$('modal').classList.add('show');$('modalBtn').onclick=()=>{$('modal').classList.remove('show');if(onClose)onClose();checkRungs();render();};}
+
+/* ---------------- warmth regen ---------------- */
+let lastTick=Date.now();
+function tick(){const now=Date.now(),dt=(now-lastTick)/1000;lastTick=now;
+  if(S.phase!=='intro'&&S.warmth<S.warmthMax){const perSec=(S.warmthMax/(85*60))*50;S.warmth=Math.min(S.warmthMax,S.warmth+perSec*dt);
+    $('warmthVal').textContent=Math.floor(S.warmth);$('warmthBar').style.width=Math.max(0,Math.min(100,(S.warmth/S.warmthMax)*100))+'%';renderActs();}}
+
+/* ---------------- chart ---------------- */
+function drawChart(){const cv=$('keChart');if(!cv)return;const ctx=cv.getContext('2d'),W=cv.width,H=cv.height,pad=8;ctx.clearRect(0,0,W,H);
+  const data=S.keSeries;if(data.length<2)return;const maxKE=Math.max(10,...data.map(d=>d.ke)),maxR=Math.max(10,...data.map(d=>d.reach));
+  const x=i=>pad+(i/(data.length-1))*(W-2*pad);
+  cline(ctx,data,d=>d.reach/maxR,x,H,pad,'#e8852a',2);cline(ctx,data,d=>d.ke/maxKE,x,H,pad,'#7fa86a',2.5);}
+function cline(ctx,data,f,x,H,pad,c,w){ctx.beginPath();data.forEach((d,i)=>{const px=x(i),py=H-pad-f(d)*(H-2*pad);i?ctx.lineTo(px,py):ctx.moveTo(px,py);});ctx.strokeStyle=c;ctx.lineWidth=w;ctx.lineJoin='round';ctx.stroke();}
+
+/* ---------------- dev panel ---------------- */
+function buildDev(){
+  $('devToggle').onclick=()=>$('devPanel').classList.toggle('show');
+  const host=$('devRungs');
+  RUNG_NAMES.forEach((nm,i)=>{const b=document.createElement('button');b.className='d';b.textContent=nm;b.onclick=()=>jumpToRung(i);host.appendChild(b);});
+  document.querySelectorAll('[data-give]').forEach(b=>b.onclick=()=>{const g=b.dataset.give;
+    if(g==='warmth')S.warmth=S.warmthMax; if(g==='glow'){S.glow+=500;S.rev.glow=true;} if(g==='reach')S.reach+=25;
+    if(g==='ripple'){S.rev.ripples=true;const n=RIPPLES.findIndex((r,i)=>!S.ripplesGot.includes(i));if(n>=0)S.ripplesGot.push(n);if(S.ripplesGot.length>=RIPPLES.length)S.rippleBonus=true;}
+    checkRungs();render();});
+  $('devNextDay').onclick=()=>{ if(!S.rung1Done)S.rung1Done=true; endDay(); };
+  $('devCrisis').onclick=()=>beginCrisis();
+  $('devReveal').onclick=()=>{ if(!S.spiritHistory.length){S.spirit=48;S.spiritHistory.push({n:1,spirit:48,mult:0.6});} S.crisis=true; S.spirit=Math.min(S.spirit,48); fireReveal(); };
+  $('devReset').onclick=()=>{localStorage.removeItem(SAVE_KEY);location.reload();};
+}
+function jumpToRung(idx){
+  // idx 0..8 -> ensure session one done and all rungs up to idx unlocked with sane prerequisites
+  if($('guide').classList.contains('show'))$('guide').classList.remove('show');
+  S.phase='play'; S.rev.reach=true; S.rev.ke=true; S.rung1Done=true;
+  const order=['board','glow','promo','genuine','alloc','ripples','circle','spaces','exits'];
+  // give prerequisites
+  if(idx>=1){S.day=Math.max(S.day,2);} if(idx>=6)S.day=Math.max(S.day,3);
+  if(idx>=1){S.rev.glow=true;S.rev.store=true;}
+  if(idx>=3){S.rev.chart=true;if(!S.unlockedActs.includes('personal'))S.unlockedActs.push('personal','handpick');}
+  if(idx>=2){S.reach=Math.max(S.reach,12);S.glow=Math.max(S.glow,60);}
+  if(idx>=4){S.promotions=Math.max(S.promotions,2);S.rankIndex=Math.max(S.rankIndex,1);S.rungs.alloc=true;}
+  if(idx>=5){for(let k=0;k<2;k++){const n=RIPPLES.findIndex((r,i)=>!S.ripplesGot.includes(i));if(n>=0)S.ripplesGot.push(n);}S.rev.ripples=true;}
+  if(idx>=6){S.rev.circle=true;}
+  if(idx>=7){S.rankIndex=Math.max(S.rankIndex,2);S.glow=Math.max(S.glow,300);S.rev.spaces=true;}
+  if(idx>=8){S.rev.exits=true;}
+  S.warmthMax=RANKS[S.rankIndex].warmthMax+S.warmthCapBonus; S.warmth=S.warmthMax;
+  for(let i=0;i<=idx;i++){S.rungs[order[i]]=true;}
+  S.rev.board=true; // Board coda is the first thing revealed past session one
+  logLine(`— [dev] jumped to Rung ${idx+1}: ${RUNG_NAMES[idx]} —`);
+  render();
+}
+function beginCrisis(){
+  if($('guide').classList.contains('show'))$('guide').classList.remove('show');
+  S.phase='play'; S.crisis=true; S.day=Math.max(S.day,4);
+  S.rankIndex=Math.max(S.rankIndex,3); S.warmthMax=RANKS[S.rankIndex].warmthMax+S.warmthCapBonus; S.warmth=S.warmthMax;
+  // make sure core systems are present
+  S.rung1Done=true; S.rev.reach=S.rev.ke=true; S.rev.board=true; S.rungs.board=S.rungs.promo=true;
+  $('deskScene').innerHTML='<b>Company-wide energy crisis.</b> Reach is at record highs, but kindness-energy is dimming and no one can explain it. The mail just keeps coming. Grind through it…';
+  logLine(`— Act III: the crisis. Long session, no top-ups. Keep dispatching and watch what surfaces. —`);
+  toast('Act III — The Plateau','The crisis session','Reach has never looked better; the world is dimming anyway. Grind volume here and the hidden cost finally shows itself. (Spirit is at '+Math.round(S.spirit)+'.)','⚠️');
+  render();
 }
 
-/* ========================================================================
-   INTRO / BOOT
-   ======================================================================== */
+/* ---------------- boot ---------------- */
 function boot(){
-  // wire exits
-  document.querySelectorAll('.exit').forEach(b=> b.onclick=()=>takeExit(b.dataset.exit));
-  $('resetBtn').onclick=()=>{ if(confirm('Reset and replay from the first day?')){ localStorage.removeItem(SAVE_KEY); location.reload(); } };
-
+  document.querySelectorAll('.exit').forEach(b=>b.onclick=()=>takeExit(b.dataset.exit));
+  $('endDayBtn').onclick=()=>{ if(guideActive())return; endDay(); };
+  buildDev();
   const saved=load();
-  // Only resume the open-ended play. Act I is short and scripted, so a mid-Act-I
-  // save restarts cleanly rather than risk a stuck narration gate.
-  if(saved && saved.phase && ['open','crisis','postreveal'].includes(saved.phase)){
-    S=saved;
-    S.keSeries=S.keSeries||[{ke:0,reach:0}];
-    render();
-    logLine('— Welcome back. The floor is as you left it. —');
-    render();
-  } else {
-    S=freshState();
-    render();
-    // intro splash
-    bigModal('Kindness &amp; Co',
-      'Your first day in the mail room',
-      `A company whose entire business is spreading kindness. You start at the bottom and rise.<br><br>
-       This is a short playable prototype: a guided first session, and then the floor opens up. Pay attention to your own numbers — the game never lectures, it just lets you feel it.<br><br>
-       <span style="color:var(--ink-soft)">Tip: Warmth refills over time (sped up here). When you run low, take a breath: Rest, Receive, or Reflect.</span>`,
-      '✦','Walk in', ()=>{ startAct1(); });
+  if(saved && saved.rung1Done){ S=saved; S.keSeries=S.keSeries||[{ke:0,reach:0}]; render(); logLine('— Welcome back. —'); render(); }
+  else {
+    S=freshState(); render();
+    bigModal('Kindness &amp; Co','Your first day in the mail room',
+      `A company whose whole business is spreading kindness. You start at the bottom and rise.<br><br>This prototype introduces systems <b>one at a time</b>. Session one is just the core loop — nothing else. Everything else arrives later, only when you’d feel its absence.<br><br><span style="color:var(--ink-soft)">Testers: the <b>DEV</b> button (bottom-left) jumps you to any rung and can force the Spirit reveal.</span>`,
+      '✦','Walk in',()=>startSessionOne());
   }
-
-  setInterval(tick, 600);
+  setInterval(tick,600);
 }
-window.addEventListener('DOMContentLoaded', boot);
+window.addEventListener('DOMContentLoaded',boot);
 </script>
 </body>
 </html>

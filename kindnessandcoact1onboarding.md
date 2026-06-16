@@ -1,274 +1,262 @@
-# Kindness & Co — Act I Onboarding Beat Sheet and the Spirit-Meter Hinge (v0.1)
+# Kindness & Co — Onboarding sequence (early game), v0.2
 
-> Companion to `kindness-and-co-design.md`. This document specifies the first player session
-> (Act I, the mail room) beat by beat, and nails down the full lifecycle of the Spirit meter
-> from silent tracking to its Act III reveal. The reveal is the moment the whole campaign
-> swings on, and you cannot build Act I correctly without knowing exactly what it is secretly
-> recording and what later surfaces it. Section references below point to the main design doc.
+> Companion to `kindness-and-co-design.md`. This **replaces v0.1**, which packed roughly ten
+> systems into a single three-to-five-minute first session and overwhelmed playtesters. v0.2
+> introduces systems **one at a time** across the early game (the Act I mail room and into Act
+> II), on a ladder cadence: each system enters only when its absence has become a felt problem
+> for the player. The Spirit-meter spec from v0.1 is preserved unchanged at the end.
 
-## How to read this
+## What changed from v0.1
 
-Each beat uses the same template:
+- **Session one is now the core loop and nothing else.** No Dispatch Board, no second
+  currency, no promotion, no allocation, no Circle.
+- Everything v0.1 crammed into the first session is redistributed across **nine teaching
+  moments**, each gated by a trigger.
+- The appointment hook (passive accrual) was moved to where it actually makes sense, the
+  community-spaces rung, because nothing accrues until the player owns a space. Session one no
+  longer promises accrual it cannot deliver.
 
-- **Sees** — what is on screen.
-- **Does** — the player action.
-- **Teaches** — the intended lesson (mechanical or cultural).
-- **Conceals** — what the beat deliberately hides or under-emphasizes.
-- **Feels** — the emotional target.
-- **State** — the systems state after the beat.
+## Principles
 
-All numbers are illustrative (see the provenance note in the main doc).
+1. **Teach by need, not by tour.** A system is introduced at the exact moment its absence
+   becomes a felt problem, and not one beat before.
+2. **One verb at a time, uncontested.** Never introduce two new systems in the same beat.
+   Each teaching moment gets a clean stage.
+3. **Gate attention, not just unlocks.** A system can exist in the simulation (and record
+   state) long before it is allowed to occupy screen space.
+4. **Pacing is uneven on purpose.** Wait for the trigger even if that means several sessions
+   between rungs. An empty rung beats a premature one.
 
----
+## Self-check diagnostic
 
-## What Act I onboarding must accomplish
-
-1. Teach the core loop in one frictionless action: spend Warmth, do an act, watch the number
-   climb (main doc Section 3).
-2. Make volume feel genuinely good. The player should leave their first session a little in
-   love with the grind. This is the "before" the campaign later transforms (Section 11, Act I
-   and II).
-3. Install the company religion: **Reach** is the sacred metric, the Dispatch Board is the
-   altar, climbing is the point.
-4. Plant exactly one visible seed of the world-level decouple (Reach and kindness-energy can
-   come apart), as a whisper the player will not consciously register.
-5. Begin silently recording **Spirit** from the very first act, while showing the player no
-   trace of it, and guarantee the player cannot deplete it far enough to trigger its reveal.
-
-Point 5 is the hinge. The rest of this document exists to make it precise.
+For every element on the screen, ask: what problem does this solve for the player, and have
+they felt that problem yet? If they have not felt the problem, the element is premature and
+should be invisible until they do.
 
 ---
 
-## The two hidden threads
+## The introduction sequence (the ladder)
 
-Keep these mechanically separate so the Act III payoff stays clean.
+Rung 1 is session one and is specified beat by beat. Rungs 2 through 9 use a compact template
+(Trigger / Teaches / Conceals / State). Spirit is deliberately off the ladder (see the
+lifecycle spec below).
 
-- **Thread A, the world decouple (visible seed).** Reach can rise while real
-  kindness-energy does not. Act I plants one quiet instance of this (Beat 8). This thread
-  feeds the Goodhart crisis (Section 11, Act III).
-- **Thread B, the cost of giving (invisible).** Spirit. Tracked from act one, shown to the
-  player **never** in Act I, with no seed and no foreshadow. Total invisibility is the point:
-  the Act III reveal lands harder the more completely the player was unaware it existed.
+### Rung 1 — Core loop (session one, in full)
 
-Do not let Thread A's whisper read as a Spirit event. The recipient who is not reached
-(Thread A) is about the *world*, not about the player being depleted (Thread B).
+The first session teaches exactly one verb: spend Warmth, do an act, watch the number climb.
 
----
+- **Beat 1, Arrive.** The mail room. Warm, brief, gently corporate-cheery. The founder's
+  words are framed on the wall, played straight (their irony is only legible on a replay). No
+  mechanics yet.
+- **Beat 2, The first act.** A friendly colleague hands the player one simple task with a
+  single highlighted button. One click. Warmth ticks down a little, Reach ticks up, a
+  satisfying chime. **Spirit begins recording silently here** (see lifecycle spec); the player
+  sees no meter.
+- **Beat 3, A few more.** A short burst of rote acts. On a streak, a light celebration
+  ("five in a row, you're a natural"). **Sincerity decay is dormant**, so volume feels pure
+  and rewarding.
+- **Beat 4, A warm stop.** A gentle "good first day." **No accrual promise** (nothing
+  accrues yet), no board, no allocation. The player ends topped up and proud.
 
-## The beat sheet (first session, target 3 to 5 minutes)
+**Concealed in session one:** Glow (earned and banked, not shown), the Dispatch Board,
+promotions, stat allocation, the Circle, and Spirit.
 
-### Beat 0 — Arrival
-- **Sees:** The mail room of Kindness & Co. Warm, busy, gently corporate-cheery. The
-  founder's words are framed on the wall, already a little hollowed by overuse.
-- **Does:** Walks in. No mechanics yet.
-- **Teaches:** Tone and place. This is a company, and kindness is its business.
-- **Conceals:** That the founder's principle has drifted (Section 11). The quote is played
-  straight here; its irony is only legible on a replay.
-- **Feels:** Belonging, mild awe at the scale of the operation.
-- **State:** No resources spent.
+**State after session one:** Warmth drawn down and regenerating. Reach shown. Glow recorded
+but hidden. Spirit recorded but hidden, and firmly in the top band (see reveal-proof math).
 
-### Beat 1 — The Dispatch Board
-- **Sees:** A large glowing board showing everyone's **Reach** totals, names ranked by
-  volume dispatched.
-- **Does:** Watches a colleague's number tick up and the board celebrate it.
-- **Teaches:** Reach is the number that matters here. Public, ranked, sacred.
-- **Conceals:** That kindness-energy, not Reach, is what actually powers the world. The board
-  does not display kindness-energy at all.
-- **Feels:** Aspiration. "I want my name to climb that board."
-- **State:** No resources spent.
+#### Rung 1 coda — the Dispatch Board
 
-### Beat 2 — The first act
-- **Sees:** A friendly, well-meaning quota evangelist hands the player one simple task: stamp
-  a kind note and send it out. A single highlighted button.
-- **Does:** One click.
-- **Teaches:** The atomic loop. Spend a little Warmth, perform an act.
-- **Conceals:** Nothing yet, but this is the beat where **Spirit begins recording silently**
-  (see lifecycle spec below). The act costs Spirit in hidden state; the player sees no meter.
-- **Feels:** Easy competence. A satisfying chime.
-- **State:** Warmth -2. Reach +1. kindness-energy +5 (recorded). Glow +3. Spirit
-  100 -> 98 (hidden).
+Once the loop is muscle memory (a strong session one, or the open of session two), introduce
+the Dispatch Board and quota culture. This is the company's religion: Reach is the sacred,
+public, ranked number. It is framing, not a new verb, so it rides alongside the loop, but only
+after the verb is solid. Let the player do the thing first and understand the company second.
 
-### Beat 3 — The first payout
-- **Sees:** A celebratory Reach increment (big, loud), and quieter readouts for Glow and
-  kindness-energy.
-- **Does:** Reads the result.
-- **Teaches:** The currencies exist. Glow is yours to spend; the act did some good.
-- **Conceals:** The deliberate UI hierarchy. **Reach is rendered large and celebratory;
-  kindness-energy is small and secondary.** This is an intentional framing lie that sets up
-  Goodhart. Do not give kindness-energy equal billing in Act I.
-- **Feels:** Reward. The board noticed me.
-- **State:** As Beat 2, surfaced to the player except Spirit.
+### Rung 2 — Glow and the first supply
+- **Trigger:** the player has a meaningful Glow balance (silently banked since session one)
+  **and** a first supply exists to spend it on.
+- **Teaches:** Glow is a currency with a decision attached. Reveal the banked balance ("you
+  have been earning this") together with a store holding one item that visibly improves acts.
+- **Conceals:** the wider economy (community spaces, cosmetics). Just one supply for now.
+- **State:** Glow now visible. First sink available.
 
-### Beat 4 — The streak
-- **Sees:** A few more rote acts available in a row. On the third, a celebration: "Five in a
-  row, you're a natural."
-- **Does:** Performs a short burst of rote acts.
-- **Teaches:** Volume is good and gets celebrated. Streaks feel great.
-- **Conceals:** **Sincerity decay is dormant in Act I** (effectively zero, see Section 6).
-  The player must learn that grinding is pure upside, because the later discovery that it is
-  not is the whole point. Do not let decay bite here.
-- **Feels:** Flow, momentum, mastery.
-- **State:** Warmth drawn down further; Reach climbing; Spirit drifting down in hidden state
-  but still firmly in the top band (math below).
+### Rung 3 — Promotion as reset
+- **Trigger:** the first level-up threshold.
+- **Teaches:** progression doubles as a resource reset, and climbing is the goal. Pure
+  reward: refill Warmth to full, celebrate, the player's name climbs the Board. **No stat
+  allocation yet.**
+- **Conceals:** the build/allocation layer, and the hidden Spirit restore that rides along.
+- **State:** Warmth full. Spirit restored (hidden). Rank up.
 
-### Beat 5 — The first promotion
-- **Sees:** A promotion ceremony. Mail Room Clerk to the next rung. Confetti, a badge, the
-  player's name moves up the Dispatch Board.
-- **Does:** Accepts the promotion.
-- **Teaches:** Progression doubles as a resource reset. The promotion **refills Warmth to
-  full and restores Spirit** (hidden), and climbing is framed as the goal.
-- **Conceals:** That the Spirit restore even happened. The player experiences a Warmth refill
-  and a rank-up; the Spirit top-up rides along invisibly and helps guarantee Act I stays
-  reveal-proof.
-- **Feels:** Pride, ascent, "this is working."
-- **State:** Warmth full. Spirit restored toward 100 (hidden). +1 stat point.
+### Rung 4 — Genuine acts
+- **Trigger:** rote acts start feeling samey, or a recipient's situation visibly needs more
+  than a rote act.
+- **Teaches:** not all acts are equal; depth exists. This is the first quiet seed of
+  depth-over-volume, **not yet the lesson** (the depth and volume payoff lines still overlap
+  here, per Act II in the main doc).
+- **Conceals:** brave acts, the Courage gate, and the full teeth of sincerity decay (still
+  gentle).
+- **State:** a second act type is available.
 
-### Beat 6 — Stat allocation
-- **Sees:** A light allocation screen: Warmth capacity vs Efficiency.
-- **Does:** Spends one point.
-- **Teaches:** A faint sense of a build and ownership.
-- **Conceals:** Any hint of Spirit. **Offer no Spirit-related stat in Act I.** A stat that
-  touched Spirit would betray its existence.
-- **Feels:** Agency.
-- **State:** Stat applied.
+### Rung 5 — Stat allocation and build
+- **Trigger:** the second promotion, once the player has a forming playstyle.
+- **Teaches:** ownership and a build. Now introduce stat points (Warmth capacity vs
+  Efficiency).
+- **Conceals:** any Spirit-touching stat (there are still none; a Spirit stat would betray
+  its existence).
+- **State:** allocation available.
 
-### Beat 7 — A kindness received
-- **Sees:** A small unprompted kindness arrives from a peer (NPC or another player), with a
-  warm little animation.
-- **Does:** Receives it. No action required.
-- **Teaches:** Seeds the Circle and the receive mechanic. It simply feels nice.
-- **Conceals:** That receiving just topped up the player's hidden Spirit. In Act I, receiving
-  is framed purely as a pleasant social moment, not as a fatigue-recovery tool, because
-  fatigue is not yet visible.
-- **Feels:** Warmth, connection, being thought of.
-- **State:** Spirit nudged up (hidden). Circle seeded.
+### Rung 6 — Ripples
+- **Trigger:** the player has organically collected a couple of Ripple stories, which arrive
+  as surprises from acts.
+- **Teaches:** the collection meta, permanent bonuses, and shareable narrative. Reveal the
+  set frame only once a few pieces exist, so it lands on real pieces rather than an empty grid.
+- **Conceals:** nothing major. Keep completion deterministic-with-effort, not gacha (main doc
+  Section 9).
+- **State:** Ripple collection UI revealed. First set in progress.
 
-### Beat 8 — The whisper (Thread A seed)
-- **Sees:** One ordinary-looking delivery whose result is subtly off. Either the recipient's
-  response is flat or absent, or the act pays visibly less kindness-energy than its identical
-  neighbors while still paying the same Reach.
-- **Does:** Performs the act like any other.
-- **Teaches:** Nothing explicitly. This is a seed, not a lesson.
-- **Conceals:** Its own importance. Most players will not consciously notice. It plants
-  Thread A: Reach and kindness-energy can come apart. Act II's hairline crack and Act III's
-  crisis harvest this.
-- **Feels:** A barely-there flicker of "huh," gone in a second.
-- **State:** Reach +1, kindness-energy below the usual for that act (recorded). Keep this a
-  one-off; do not let it read as Spirit depletion.
+### Rung 7 — The Kindness Circle
+- **Trigger:** the solo loop is steady (the player returns reliably and is comfortable with
+  acts, economy, and progression).
+- **Teaches:** mutual care, cooperative acts, and social reach. Introduce **receive** first
+  as a pure delight (someone sends you a kindness), then reveal that you can send and
+  cooperate.
+- **Conceals:** that receiving is a fatigue-recovery tool (fatigue is still invisible). The
+  receive silently tops up Spirit.
+- **State:** Circle active. Receive, send, and a first cooperative act.
 
-### Beat 9 — Soft close
-- **Sees:** A gentle "great first day" wrap, the player's Reach total shown proudly, and a
-  note that their mail and spaces will accrue while they are away.
-- **Does:** Ends the session.
-- **Teaches:** The appointment hook (come back, things accrue). Section 7's passive trickle,
-  framed kindly.
-- **Conceals:** Nothing new. Critically, the player ends **topped up and proud, never
-  depleted.** Spirit is in the top band. The reveal is held in reserve.
-- **Feels:** Satisfaction, anticipation, "I did well, I'll be back."
-- **State:** Session end. Spirit high (hidden). Appointment timer running.
+### Rung 8 — Community spaces (passive income and the appointment hook)
+- **Trigger:** surplus Glow beyond supplies **and** a rank gate.
+- **Teaches:** long-horizon investment, tending, and lasting good. Introduce the first
+  community space (a capital sink that accrues passive Glow while the player is away). **This
+  is where the appointment mechanic lands**, because now there is finally something to return
+  to.
+- **Conceals:** nothing major.
+- **State:** first space owned. Passive accrual and the return-to-tend loop are live.
+
+### Rung 9 — The wall and its exits
+- **Trigger:** the first time Warmth actually runs low. Given how generous Warmth is, this
+  may not happen until content density rises, which is correct: teach the exit at the moment
+  of the wall, never before.
+- **Teaches:** what to do when low, and that the wall is humane. Introduce the three exits in
+  context: rest, receive, reflect.
+- **Conceals:** still no Spirit and no pay-anything.
+- **State:** exits introduced contextually.
 
 ---
 
-## The Spirit-meter lifecycle (the hinge spec)
+## Off the ladder — the Spirit-meter lifecycle (the hinge spec)
 
-### Phase 1 — Silent tracking (from Beat 2)
+Spirit is the one system you deliberately do not teach. Its whole power is that the player
+discovers it has been there all along. Keep it hidden; do not add a tutorial for it.
+
+### Phase 1 — Silent tracking (from session one, Beat 2)
 Spirit is a real variable, initialized at 100, decremented by every act from the very first
-one (rote -2, genuine -4, brave -8 per Section 4.2). It is recorded in player state every
-beat. It is rendered to the player **nowhere** in Act I: no meter, no number, no icon, no
-stat, no tooltip. The complete history is retained because the Act III reveal will surface
-it retroactively.
+one (rote -2, genuine -4, brave -8, per main doc Section 4.2). It is recorded every act and
+rendered to the player **nowhere** in the early game: no meter, no number, no icon, no stat,
+no tooltip. The full history is retained because the Act III reveal surfaces it retroactively.
 
-### Phase 2 — Why Act I is arithmetically reveal-proof
-The reveal trigger (below) is Spirit dropping below 50. Act I must make that impossible
-through content tuning, not through a clamp, so the simulation stays honest.
+### Phase 2 — Why the early game is reveal-proof
+The reveal trigger (below) is Spirit dropping below 50. Early content must make that
+impossible through tuning, not a clamp, so the simulation stays honest.
 
-The math, with Act I values (Warmth max 20, rote act costs 2 Warmth and 2 Spirit):
+The math, with Act I values (Warmth max 20; a rote act costs 2 Warmth and 2 Spirit):
 
-- One full Warmth bar = 10 rote acts = **-20 Spirit**. Starting at 100, a complete dump
-  lands at **80**, still in the top band (×1.2).
-- Promotions (Beat 5) and received kindness (Beat 7) restore Spirit, resetting the drain.
-- To reach Spirit below 50 a player would need roughly 25-plus consecutive rote acts with no
-  top-up, which exceeds the Warmth and content available in an Act I session.
+- One full Warmth bar = 10 rote acts = **-20 Spirit**. Starting at 100, a complete dump lands
+  at **80**, still in the top band (x1.2).
+- To reach below 50 a player would need roughly 25-plus consecutive acts with no top-up,
+  which exceeds the Warmth and content available in early sessions.
 
-So depletion past the reveal threshold is not reachable in Act I by construction. Use a soft
-floor (for example, do not let Act I or II Spirit fall below ~60) only as a backstop against
-edge cases, not as the primary mechanism. Preferred order: tune budgets so it cannot happen;
-floor as insurance.
+So the **Warmth budget alone guarantees reveal-proofing**. The Spirit restores from
+promotions (Rung 3) and received kindness (Rung 7) are bonuses on top of that guarantee, not
+load-bearing for it. Use a soft floor (do not let Acts I and II Spirit fall below ~60) only as
+a backstop, never as the primary mechanism.
 
 ### Phase 3 — The reveal trigger (Act III)
-- **Condition:** the first time Spirit crosses **below 50** (out of the ×1.0 band into the
-  ×0.6 "landing flat" band).
-- **Why it cannot fire earlier:** Act I and II content caps Warmth budgets and supplies
-  regular top-ups, so sustained depletion below 50 is not achievable (Phase 2).
+- **Condition:** the first time Spirit crosses **below 50** (out of the x1.0 band into the
+  x0.6 "landing flat" band).
+- **Why it cannot fire earlier:** early content caps Warmth budgets and supplies regular
+  top-ups, so sustained depletion below 50 is not achievable (Phase 2).
 - **Why it fires in Act III:** the crisis content provides long, top-up-free sessions with
   abundant available acts, and genuine and brave acts cost more Spirit (-4, -8). A player
-  grinding volume through a crisis session naturally pushes Spirit below 50 for the first
-  time.
+  grinding volume through a crisis session naturally crosses below 50 for the first time.
 
 ### Phase 4 — The reveal behavior (the back-fill)
 When Spirit first crosses below 50:
-
 1. The meter animates into existence for the first time.
-2. It **back-fills**: it shows the player the history it has been recording, the curve of
-   their Spirit over this session (and optionally across the campaign), making visible that
-   their recent acts have been paying at ×0.6, not ×1.2.
+2. It **back-fills**, showing the player the history it has been recording (the curve of their
+   Spirit over this session, and optionally across the campaign), making visible that their
+   recent acts have been paying at x0.6, not x1.2.
 3. The gut-punch is retroactive: "this was happening the whole time, and I could not see it."
-   This is why Phase 1 must record from Beat 2. The reveal surfaces a real history, not a
-   fabricated one. A meter that began tracking only at the moment of reveal would feel cheap
-   and the player would sense it.
+   This is why Phase 1 records from session one. A meter that began tracking only at the moment
+   of reveal would feel cheap and the player would sense it.
 
-No character explains the meter. The reveal is mechanical and felt, per principle 4 (main
-doc Section 2). Any accompanying dialogue should react to the player's discovery, never
-pre-empt it.
+No character explains the meter. The reveal is mechanical and felt (main doc Section 2,
+principle 4). Any dialogue reacts to the discovery, never pre-empts it.
 
-### Phase 5 — Edge cases to handle
-- **The determined Act I grinder.** Covered by Phase 2 (cannot reach below 50) plus the soft
+### Phase 5 — Edge cases
+- **The determined early grinder:** covered by Phase 2 (cannot reach below 50) plus the soft
   floor backstop.
-- **A player who reaches Spirit below 50 in Act II** (longer content than Act I). Decide
-  deliberately: either extend the same budget discipline through Act II to hold the reveal
-  for Act III, or accept that an unusually persistent Act II player triggers the reveal a
-  little early. The reveal is robust either way, but holding it for the Act III crisis gives
-  the strongest narrative landing. Recommend holding it.
-- **Spirit at 0.** Out of scope for this onboarding slice but flagged in the main doc Section
-  17. Define what the ×0.3 band and a full depletion actually offer the player before Act III
-  ships.
+- **Reaching below 50 in Act II:** decide deliberately. Recommended: extend the same budget
+  discipline through Act II to hold the reveal for the Act III crisis, which gives the
+  strongest landing.
+- **Spirit at 0:** out of scope for this slice but flagged in main doc Section 17. Define what
+  the x0.3 band and full depletion offer the player before Act III ships.
 
 ---
 
-## UI notes specific to Act I
+## The two seeded threads
 
-- **Reach is loud, kindness-energy is quiet.** Reach gets the big celebratory treatment;
-  kindness-energy is present but visually secondary. This asymmetry is the seed of the whole
-  Goodhart arc and must be deliberate, not an accident of layout.
-- **No Spirit affordance of any kind.** Verify there is no meter, badge, stat, tooltip, or
-  settings entry that references Spirit in Act I builds.
-- **Streaks are celebrated; decay is silent.** Sincerity decay should be effectively zero in
-  Act I content so volume reads as pure upside.
+Keep these mechanically separate so the Act III payoff stays clean.
+
+- **Thread A, the world decouple (visible seed).** Reach can rise while real kindness-energy
+  does not. Plant **one** quiet instance: an ordinary-looking act whose recipient response is
+  flat, or which pays visibly less kindness-energy than its neighbors while paying the same
+  Reach. Plant it **no earlier than a few sessions in** (around Rung 4, once the player has a
+  baseline sense of a normal act, so the off-one can register as subtly wrong). Most players
+  will not consciously notice. This thread feeds the Act III crisis.
+- **Thread B, the cost of giving (invisible).** Spirit. Tracked from the first act, shown
+  never in the early game, with no seed and no foreshadow. Total invisibility is the point.
+
+Do not let Thread A's whisper read as a Spirit event. The recipient who is not reached (Thread
+A) is about the world, not about the player being depleted (Thread B).
 
 ---
 
-## Acceptance criteria (how to know onboarding worked)
+## UI notes
 
-- A new player can complete their first act within seconds of gaining control, with no
-  written instruction beyond the single highlighted button.
-- At session end, asked what the game is about, a playtester says something about spreading
-  kindness and climbing, and talks about their Reach number. They do **not** mention Spirit
-  or any cost of giving.
-- Playtesters report the first session felt good and they would return. Volume felt
-  rewarding.
-- In instrumentation, Spirit was recorded every act and never fell below the top band for any
-  player, and no player saw any Spirit UI.
-- The Beat 8 whisper went consciously unnoticed by the large majority of playtesters (it
-  should be recoverable on a replay, not salient on a first run).
+- **Reach is loud, kindness-energy is quiet** from session one. Reach gets the big
+  celebratory treatment; kindness-energy is present but visually secondary. This asymmetry is
+  the seed of the whole Goodhart arc and must be deliberate.
+- **Glow is hidden until Rung 2.** It is earned and banked from session one but not shown.
+- **No Spirit affordance anywhere on the ladder.** Verify no meter, badge, stat, tooltip, or
+  settings entry references Spirit in early builds.
+- **One introduction at a time.** Never reveal two new systems in the same beat.
+- **Streaks celebrated, decay silent** through the early rungs.
+
+---
+
+## Acceptance criteria
+
+- A new player completes their first act within seconds, with no written instruction beyond
+  the single highlighted button, and **session one contains only the loop** (verify no Board,
+  Glow, allocation, or Circle is visible in session one).
+- Asked what the game is about after session one, a playtester mentions spreading kindness and
+  perhaps climbing, and does **not** mention Glow, spaces, the Circle, or Spirit.
+- Each later system, when introduced, arrives at a moment the player can articulate a need for
+  ("I had Glow and nowhere to spend it, then the store appeared").
+- **No session ever introduces two new systems at once.**
+- In instrumentation, Spirit was recorded every act, never shown, and never fell below the top
+  band for any player in Acts I and II.
+- The Thread A whisper went consciously unnoticed by the large majority of playtesters.
 
 ---
 
 ## Open questions specific to this slice
 
-- Exact copy for the founder's wall quote, written so it plays straight on first read and
-  turns ironic on replay.
-- The precise form of the Beat 8 whisper: flat recipient response vs reduced kindness-energy
-  payout. Pick one and test which is recoverable-but-not-salient.
-- Whether promotions restore Spirit fully or partially, and how that interacts with the
-  reveal-proof math if Act I content is later expanded.
-- Session length and Warmth budget for Act I once real act content exists per department.
+- The exact Glow threshold and the first supply item that trigger Rung 2.
+- Which rung the Thread A whisper plants on, and its precise form (flat response vs reduced
+  payout). Pick one and test which is recoverable-but-not-salient.
+- Whether the Dispatch Board coda belongs at the end of session one or the open of session
+  two (playtest both).
+- The rank-gate value for the first community space.
+- Real act content per department (still open from the main doc).

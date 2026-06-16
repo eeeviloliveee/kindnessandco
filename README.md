@@ -1,80 +1,84 @@
 # Kindness & Co — Playable Prototype
 
-A first playable slice of **Kindness & Co**, the game about rising through a company
-whose business is spreading kindness. This prototype exists to let you *feel how it
-plays* — the warm volume grind of Act I, the silently-accruing cost underneath it, and
-the moment the whole thing turns.
+A playable slice of **Kindness & Co**, the game about rising through a company whose
+business is spreading kindness. It exists to let you *feel how it plays*.
 
-It is a single self-contained file. **No install, no build, no server.**
+Single self-contained file. **No install, no build, no server.**
 
 ## How to run it
 
-Open `index.html` in any modern browser (double-click it, or drag it into a browser tab).
-That's it.
+Open `index.html` in any modern browser (double-click it, or drag it into a tab).
 
-## What's in this slice
+Or play the hosted build (once Pages is enabled): **https://eeeviloliveee.github.io/kindnessandco/**
 
-This implements the **suggested first vertical slice** from the design doc (Section 16)
-*plus* the **Act I onboarding beat sheet** and the **Spirit-meter reveal hinge** — the
-moment the whole campaign swings on.
+## What this version implements — the v0.2 onboarding ladder
 
-1. **The core loop** — spend Warmth → do an act → earn Reach + kindness-energy + Glow.
-2. **Warmth** as a regenerating, humane gate (regen is accelerated ~50× here so you don't
-   have to wait 85 real minutes to test it).
-3. **The three act types** — rote / genuine / brave — with the payouts from Section 6.
-4. **The Spirit multiplier** (×1.2 / ×1.0 / ×0.6 / ×0.3 bands), **hidden during Act I** and
-   **revealed at the crisis**, exactly as the hinge spec requires. Spirit is recorded from
-   your very first act so the reveal can back-fill a *real* history, not a fake one.
-5. **Sincerity decay** on repeated identical rote acts (−15% each, floor 30%) — dormant in
-   Act I, live once the floor opens.
-6. **A live readout** of your kindness-energy vs Reach over the session, so the
-   depth-versus-volume divergence is *felt, not explained*.
-7. **The three exits** — Rest / Receive / Reflect — replacing wait / recruit / pay.
-8. **The Goodhart framing** — the Dispatch Board renders Reach loud and celebratory while
-   kindness-energy stays small and secondary.
+This build follows **`kindnessandcoact1onboarding.md` (v0.2)**: instead of front-loading
+every system, it introduces them **one at a time**, each gated by a trigger that only fires
+once its absence would be felt. The whole point is that the opening can't overwhelm you.
 
-## How to play (≈ 5–8 minutes)
+**Session one is the core loop and nothing else** — spend Warmth, do an act, watch Reach
+climb. No Board, no Glow, no promotion, no allocation, no Circle, no Spirit. You end topped
+up and proud.
 
-1. **Act I — The Mail Room.** Pem, the quota evangelist, walks you through the beat sheet:
-   the Dispatch Board, your first stamped note, a streak, a promotion (refills Warmth, and
-   *silently* tops up the hidden Spirit), a stat point, a kindness received, and one
-   ordinary delivery that's subtly *off* (the Beat 8 "whisper" — Reach goes up, the good
-   doesn't). You should leave this stretch feeling good and a little in love with the grind.
-2. **The floor opens.** Genuine acts unlock and the rails come off. **Now: just keep the
-   board climbing.** Grind rote acts. Watch Reach soar.
-3. **The turn.** Keep grinding and your hidden Spirit slides. The first time it crosses
-   below 50, the **Spirit meter animates into existence and back-fills its whole history** —
-   showing you that your recent acts have been landing flat the entire time, and the
-   dashboard never said a word.
-4. **The relearning.** A brave act unlocks — a real case (Maro in Accounts) that volume
-   can't touch. One brave act out-earns a long stretch of your rote dispatches. The thesis,
-   in your own numbers. From here, manage Spirit with Rest / Receive / Reflect, mix in depth,
-   and watch the green line pull away from the orange one.
+Then the nine rungs ladder in, in order, as you play:
 
-> **To reach the reveal, you have to push volume.** A careful depth-first player can keep
-> their Spirit high and never trigger it — which is thematically correct, but means a
-> playtester being "good" might miss the hinge. For testing, grind rote acts after the floor
-> opens. (In the full game, Act III's long top-up-free crisis sessions force this naturally.)
+1. **Core loop** (session one, scripted by Pem).
+2. **Dispatch Board** — opens at the start of day 2 (Reach is loud; the company religion).
+3. **Glow** — revealed once you've quietly banked enough, together with a one-item supply store.
+4. **Promotion as reset** — at the first Reach threshold: refill Warmth, climb the board. (No allocation yet.)
+5. **Genuine acts** — once rote starts feeling samey; also reveals the depth-vs-volume chart. *(The Thread A "whisper" — Reach up, kindness flat — is planted here.)*
+6. **Stat allocation** — at the second promotion, when you have a playstyle.
+7. **Ripples** — once a couple of story-pieces have organically dropped from your acts.
+8. **The Kindness Circle** — once you're returning reliably (day 3+): receive first, then send and co-host.
+9. **Community spaces** — surplus Glow + rank: the first space that accrues Glow *while you're away* (the appointment hook).
+10. **The wall & its exits** — the first time Warmth actually runs low: Rest / Receive / Reflect.
 
-Your open-play progress is saved in the browser. **Reset & replay** (bottom of the page)
-clears it and starts the first day over.
+And off the ladder, the hinge: **Spirit** is recorded silently from your very first act,
+shown nowhere, kept reveal-proof in Acts I/II, and revealed only when it crosses below 50 in
+the Act III crisis — where the meter animates in and **back-fills its real history**.
 
-## What is *not* in this slice (deliberately)
+## Sessions
 
-Per the build guidance, these are later layers: the Glow sinks (community spaces,
-cosmetics), Ripples and collections, the Kindness Circle as real multiplayer, Courage as a
-full economy, and the complete five-act narrative (Acts IV–V and the Coda). The Circle and
-crisis here are compressed into a single solo session so the *hinge* is testable end-to-end.
+There's an **End the day** button. Warmth refills overnight, and any community spaces accrue
+Glow while you're away — so the appointment hook is real, not faked. Some rungs gate on the
+day count (the Board at day 2, the Circle at day 3+).
 
-## A note on the numbers
+## The DEV panel (bottom-left) — for testing
 
-Every constant comes straight from the design docs and is illustrative by design — a
-starting point for a tuning spreadsheet, not a final value. The relationships between the
-numbers are the design; the exact values are a balancing job. Warmth regen is sped up for
-testing and flagged as such in-game.
+Because the ladder is deliberately paced across days, a tester shouldn't have to grind to
+reach later rungs. The **🛠 DEV** panel lets you:
+
+- **Jump to any rung** (unlocks everything up to it, with sane prerequisites).
+- Add Warmth / Glow / Reach / a Ripple.
+- **Advance one day.**
+- **Begin the Act III crisis** (makes the Spirit reveal reachable by grinding) or **force the reveal now**.
+- Reset and replay from Day 1.
+
+## Suggested test paths
+
+- **The intended experience:** play session one, end the day, and let the rungs arrive on
+  their own. Notice whether each new system shows up at a moment you can articulate a need for.
+- **Straight to the hinge:** DEV → *Begin Act III crisis*, then grind rote acts until Spirit
+  crosses below 50 and the meter back-fills. Then do the brave act it unlocks (Maro) and watch
+  one act out-earn a long rote streak.
+- **Feel the anti-grind:** spam the *same* rote act after Rung 4 and watch sincerity decay
+  starve your payouts (this is why a pure grinder's Glow stalls).
+
+## Design choices I made where the doc left it open
+
+- **Board coda** opens at the start of session two (the doc flags day-1-end vs day-2-open as a
+  playtest question; this is easy to flip).
+- **Thread A whisper** plants at Rung 4, per the doc's recommendation.
+- Glow / Reach / rank thresholds are tuned so triggers fire within a natural play session.
+
+## Numbers
+
+Every constant comes from the design docs and is illustrative — a starting point for tuning,
+not final values. Warmth regen is sped up ~50× so you don't wait 85 real minutes.
 
 ## Files
 
 - `index.html` — the entire game (HTML + CSS + JS, no dependencies).
-- `kindnessandcodesign.md` — the source design doc (your upload, for reference).
-- `kindnessandcoact1onboarding.md` — the Act I beat sheet (your upload, for reference).
+- `kindnessandcodesign.md` — the main design doc.
+- `kindnessandcoact1onboarding.md` — the v0.2 onboarding ladder this build follows.
