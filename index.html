@@ -666,7 +666,7 @@ function fireReveal(){
   S.revealFired=true; S.phase='postreveal'; S.spiritShown=true; S.rev.spirit=true; render();
   setTimeout(drawReveal,200); $('revealModal').classList.add('show');
   const hist=S.spiritHistory.length, flat=S.spiritHistory.filter(h=>h.mult<1).length;
-  $('revealText').innerHTML=`There’s a meter you were never shown: <b>Spirit</b>. It’s been recording since your very first act — every act spent a little. Look at the curve: your recent dispatches landed at <b>×0.6</b>, not ×1.2. Flat. Depleted. <b>${flat}</b> of your <b>${hist}</b> acts paid below your best, and the Reach line never dipped. That’s the whole problem.`;
+  $('revealText').innerHTML=`There’s a meter you were never shown: <b>Spirit</b>. It’s been recording since your very first act — every act spent a little. Look at the curve: your recent gifts landed at <b>×0.6</b>, not ×1.2. Flat. Depleted. <b>${flat}</b> of your <b>${hist}</b> acts gave less than your best — and the number we all watched together, the one that felt so good to fill, never so much as flickered. We weren’t wrong to love it. It just quietly stopped telling the truth.`;
   $('revealBtn').onclick=()=>{$('revealModal').classList.remove('show');afterReveal();};
 }
 function drawReveal(){
@@ -685,15 +685,15 @@ function drawReveal(){
 function afterReveal(){
   S.crisis=true; S.rev.courage=true; S.courage=S.courageMax;
   if(!S.unlockedActs.includes('reachout'))S.unlockedActs.unshift('reachout','apology');
-  $('deskScene').innerHTML='<b>Maro in Accounts has gone quiet for days.</b> No stock card reaches this. It needs courage — and volume can’t fix it.';
-  logLine(`— You can see Spirit now. Grinding flat costs you. There’s one thing volume can’t solve. —`);
+  $('deskScene').innerHTML='<b>Maro in Accounts has gone quiet for days.</b> No stock card reaches this. It needs courage — and no amount of volume can fix it.';
+  logLine(`— You can see Spirit now. Giving from empty gives less. There’s one thing the board could never measure. —`);
   render();
   speak([{step:'Act III · The turn', ava:'🧭', who:'Pem', role:'quieter now',
-    txt:`I… didn’t know it was doing that either. There’s a case the board can’t help with — Maro. A real one. It’ll cost more Spirit than anything you’ve done. But try it. Just once.`, btn:'Find the courage', onNext:()=>highlight('#act_reachout')}]);
+    txt:`We weren’t being vain, you know. We <i>loved</i> that board. It felt good to watch it fill — all that kindness, out in the world. And the whole time, this was quietly emptying, and it never told us. <br><br>There’s someone the board could never have shown you. Maro. A real person, a real hard week. It’ll cost more Spirit than anything you’ve done. But try it. Just once.`, btn:'Find the courage', onNext:()=>highlight('#act_reachout')}]);
 }
 function bravePayoff(keGain){
   bigModal('That one act…',`+${fmt(keGain)} kindness-energy`,
-    `Your name moved <b>+1</b> on the board — same as a stamped sticker. But the <b style="color:var(--ke)">kindness-energy</b> from this single brave act outweighs a long stretch of your rote dispatches combined.<br><br>This is the whole thing, in your own numbers: <b>depth out-earns volume</b>. Reach never showed it. Spirit and kindness-energy do.`,'💫','Keep going');
+    `On the board, this counted as <b>+1</b> — the same as a stamped sticker. But the <b style="color:var(--ke)">kindness-energy</b> from this single brave act outweighs a long stretch of your rote gifts combined.<br><br>This is the whole thing, in your own numbers: <b>depth out-earns volume</b>. The number we all trusted could never see the difference. Spirit and kindness-energy can.`,'💫','Keep going');
 }
 
 /* ---------------- modals ---------------- */
@@ -754,9 +754,9 @@ function beginCrisis(){
   S.rankIndex=Math.max(S.rankIndex,3); S.warmthMax=RANKS[S.rankIndex].warmthMax+S.warmthCapBonus; S.warmth=S.warmthMax;
   // make sure core systems are present
   S.rung1Done=true; S.rev.reach=S.rev.ke=true; S.rev.board=true; S.rungs.board=S.rungs.promo=true;
-  $('deskScene').innerHTML='<b>Company-wide energy crisis.</b> Reach is at record highs, but kindness-energy is dimming and no one can explain it. The mail just keeps coming. Grind through it…';
-  logLine(`— Act III: the crisis. Long session, no top-ups. Keep dispatching and watch what surfaces. —`);
-  toast('Act III — The Plateau','The crisis session','Reach has never looked better; the world is dimming anyway. Grind volume here and the hidden cost finally shows itself. (Spirit is at '+Math.round(S.spirit)+'.)','⚠️');
+  $('deskScene').innerHTML='<b>The whole company is dimming.</b> And the strangest part: the Dispatch Board glows brighter than ever. The number we all watch together, the one that always felt so good to see, says everything is wonderful. The mail keeps coming. Keep going…';
+  logLine(`— Act III: the crisis. The board everyone trusts has never looked better. The world is going dark anyway. Keep dispatching and watch what surfaces. —`);
+  toast('Act III — The Plateau','The crisis session','Reach has never been higher — and the world is dimming anyway. No one can explain it, because the number we all believed in is still climbing. Keep giving here, and what it cost finally shows itself. (Spirit is at '+Math.round(S.spirit)+'.)','⚠️');
   render();
 }
 
