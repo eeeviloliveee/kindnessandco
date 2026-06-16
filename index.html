@@ -195,7 +195,7 @@
       <div class="panel board hidden" id="boardPanel">
         <h2>★ Dispatch Board</h2>
         <div class="body">
-          <div class="boardnote">Ranked by <b style="color:var(--reach)">Reach</b> — total kindness dispatched. The number that matters here.</div>
+          <div class="boardnote"><b style="color:var(--reach)">Reach</b> is all the kindness this floor has sent into the world — yours and everyone's, together. Look how much there is.</div>
           <div id="boardRows"></div>
           <div class="founderquote">“No kindness is ever wasted.”<small>— Eleanor Vance, founder</small></div>
         </div>
@@ -529,9 +529,9 @@ function doPromotion(){
   S.promotions++; S.rankIndex=Math.min(RANKS.length-1,S.rankIndex+1);
   S.warmthMax=RANKS[S.rankIndex].warmthMax+S.warmthCapBonus; S.warmth=S.warmthMax;
   if(!S.crisis) S.spirit=Math.min(100,S.spirit+18); // hidden Spirit restore
-  logLine(`🏅 <b>Promoted to ${RANKS[S.rankIndex].name}.</b> Warmth refilled; your name climbs the board.`,'good');
+  logLine(`🏅 <b>Promoted to ${RANKS[S.rankIndex].name}.</b> Warmth refilled; you're growing into the work.`,'good');
   const giveStat=S.rungs.alloc; if(giveStat)S.statPoints++;
-  bigModal('Promoted!',RANKS[S.rankIndex].name,`Confetti, a badge, your name moves up the Dispatch Board.<br><br><b>Warmth refilled to full.</b>`+(giveStat?` You earned a <b>stat point</b>.`:''),'🎊',giveStat?'Allocate':'Continue',()=>{ if(giveStat)openAlloc(); else render(); });
+  bigModal('Promoted!',RANKS[S.rankIndex].name,`Confetti, a badge, and a little more room to do good.<br><br><b>Warmth refilled to full.</b>`+(giveStat?` You earned a <b>stat point</b>.`:''),'🎊',giveStat?'Allocate':'Continue',()=>{ if(giveStat)openAlloc(); else render(); });
 }
 function openAlloc(){ $('allocModal').classList.add('show');
   document.querySelectorAll('.alloc').forEach(b=>b.onclick=()=>{const st=b.dataset.stat;
@@ -562,7 +562,7 @@ const RUNGS=[
   {key:'board', when:()=> S.rung1Done && S.day>=2,
    go:()=>{S.rev.board=true; render();
      speak([{step:'The Dispatch Board', who:'Pem', ava:'😊', highlight:'#boardPanel',
-       txt:`Welcome back! Now that you’ve got the rhythm — meet the <b>Dispatch Board</b>. It ranks everyone by <b style="color:var(--reach)">Reach</b>: how much kindness you’ve sent. Public, ranked, sacred. Climbing it is the whole point around here.`, btn:'I want my name up there'}]);}},
+       txt:`Welcome back! Now that you’ve got the rhythm — come see the <b>Dispatch Board</b>. Every name, every bit of <b style="color:var(--reach)">Reach</b>, is kindness that’s gone out into the world. Yours is in there too, mixed in with everyone’s. Doesn’t it feel good to see how much there is?`, btn:'It really does'}]);}},
 
   {key:'glow', when:()=> S.rungs.board && S.glow>=30,
    go:()=>{S.rev.glow=true; S.rev.store=true; render();
