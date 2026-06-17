@@ -386,8 +386,14 @@ function render(){
   renderBoard(); renderActs(); renderFeed(); renderStore(); renderSpaces(); renderCircle(); renderRipples();
   if(S.rev.chart) drawChart();
 
-  $('lowwarn').classList.toggle('show', S.rev.exits && S.warmth<2);
+  const low = S.rung1Done && S.warmth<2;
+  const lw=$('lowwarn'); lw.classList.toggle('show', low);
+  if(low) lw.innerHTML = S.rev.exits
+    ? "You're running low on Warmth. That's a signal, not a failure — Rest, Receive, or Reflect below."
+    : "You're out of Warmth. It refills slowly over time — or end the day to come back full.";
   $('sessionCtl').style.display = S.rung1Done ? 'flex' : 'none';
+  $('sessionNote').textContent = (S.warmth < S.warmthMax*0.25)
+    ? 'Low on Warmth? End the day to come back refreshed.' : 'Done for now? Wrap up the day.';
   save();
 }
 function show(id,on){$(id).style.display=on?'block':'none';}
@@ -700,10 +706,15 @@ function bravePayoff(keGain){
 function toast(title,sub,body,confetti){$('modalConfetti').textContent=confetti||'';$('modalTitle').textContent=title;$('modalSub').textContent=sub||'';$('modalBody').innerHTML=body||'';$('modalBtn').textContent='Continue';$('modal').classList.add('show');$('modalBtn').onclick=()=>{$('modal').classList.remove('show');checkRungs();render();};}
 function bigModal(title,sub,body,confetti,btn,onClose){$('modalConfetti').textContent=confetti||'';$('modalTitle').textContent=title;$('modalSub').textContent=sub||'';$('modalBody').innerHTML=body||'';$('modalBtn').textContent=btn||'Continue';$('modal').classList.add('show');$('modalBtn').onclick=()=>{$('modal').classList.remove('show');if(onClose)onClose();checkRungs();render();};}
 
-/* ---------------- warmth regen ---------------- */
+/* ---------------- warmth regen ----------------
+   Warmth is the gate. It must feel scarce: spend a burst, then either pace
+   yourself or End the day to come back full. Regen scales with warmthMax so a
+   full refill-from-empty takes ~the same wall-clock time at every rank (the
+   design's humane, rank-flat refill). Tune the feel with one number: */
+const WARMTH_REFILL_SECONDS = 300;  // seconds for a full bar to refill from empty
 let lastTick=Date.now();
 function tick(){const now=Date.now(),dt=(now-lastTick)/1000;lastTick=now;
-  if(S.phase!=='intro'&&S.warmth<S.warmthMax){const perSec=(S.warmthMax/(85*60))*50;S.warmth=Math.min(S.warmthMax,S.warmth+perSec*dt);
+  if(S.phase!=='intro'&&S.warmth<S.warmthMax){const perSec=S.warmthMax/WARMTH_REFILL_SECONDS;S.warmth=Math.min(S.warmthMax,S.warmth+perSec*dt);
     $('warmthVal').textContent=Math.floor(S.warmth);$('warmthBar').style.width=Math.max(0,Math.min(100,(S.warmth/S.warmthMax)*100))+'%';renderActs();}}
 
 /* ---------------- chart ---------------- */
